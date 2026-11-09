@@ -70,6 +70,50 @@ app.get('/api/products', async (_req, res) => {
   res.json((data || []).map(p => ({ ...p, variants: Array.isArray(p.variants) ? p.variants : [] })));
 });
 
+// Public customer reviews are held for admin approval before appearing publicly.
+app.get('/api/reviews', async (req, res) => {
+  const productId = Number(req.query.productId);
+  if (!Number.isInteger(productId) || productId < 1) return res.status(400).json({ error: 'Invalid product.' });
+  const { data, error } = await supabase.from('reviews').select('id, customer_name, rating, comment, created_at')
+    .eq('product_id', productId).eq('status', 'Approved').order('created_at', { ascending: false });
+  if (error) return sendSupabaseError(res, error);
+  res.json(data || []);
+});
+
+app.post('/api/reviews', async (req, res) => {
+  const productId = Number(req.body?.productId);
+  const customerName = String(req.body?.customerName || '').trim().slice(0, 80);
+  const comment = String(req.body?.comment || '').trim().slice(0, 1200);
+  const rating = Number(req.body?.rating);
+  if (!Number.isInteger(productId) || productId < 1 || !customerName || !comment || !Number.isInteger(rating) || rating < 1 || rating > 5)
+    return res.status(400).json({ error: 'নাম, ১–৫ Rating এবং Review লিখুন।' });
+  const { data: product, error: productError } = await supabase.from('products').select('id, name').eq('id', productId).maybeSingle();
+  if (productError) return sendSupabaseError(res, productError);
+  if (!product) return res.status(404).json({ error: 'Product not found.' });
+  const { data, error } = await supabase.from('reviews').insert({
+    product_id: product.id, product_name: product.name, customer_name: customerName,
+    rating, comment, status: 'Pending'
+  }).select('id, status').single();
+  if (error) return sendSupabaseError(res, error);
+  res.status(201).json({ ok: true, review: data });
+});
+
+app.get('/api/admin/reviews', requireAdmin, async (_req, res) => {
+  const { data, error } = await supabase.from('reviews').select('*').order('created_at', { ascending: false });
+  if (error) return sendSupabaseError(res, error);
+  res.json(data || []);
+});
+
+app.patch('/api/admin/reviews/:id', requireAdmin, async (req, res) => {
+  const status = String(req.body?.status || '');
+  if (!['Approved', 'Rejected'].includes(status)) return res.status(400).json({ error: 'Invalid review status.' });
+  const { data, error } = await supabase.from('reviews').update({ status })
+    .eq('id', Number(req.params.id)).select('id, status').maybeSingle();
+  if (error) return sendSupabaseError(res, error);
+  if (!data) return res.status(404).json({ error: 'Review not found.' });
+  res.json({ ok: true });
+});
+
 app.post('/api/admin/login', async (req, res) => {
   const { username, password } = req.body || {};
   const validUser = username === ADMIN_USER;
