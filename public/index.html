@@ -8,44 +8,136 @@
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,"Noto Sans Bengali",sans-serif}
 header{position:sticky;top:0;background:#f6f4edf2;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:2}
 nav,.wrap,.foot{max-width:1160px;margin:auto;padding:16px 22px}nav{display:flex;justify-content:space-between;align-items:center}
-.logo{font: bold 29px Georgia,serif;letter-spacing:5px}.sub{display:block;font-size:9px;letter-spacing:3px;color:var(--gold)}
+.logo{font:bold 29px Georgia,serif;letter-spacing:5px}.sub{display:block;font-size:9px;letter-spacing:3px;color:var(--gold)}
 button,.btn{border:1px solid var(--ink);background:var(--ink);color:white;padding:11px 16px;cursor:pointer;text-decoration:none}
-button.alt{background:transparent;color:var(--ink)}.hero{margin:18px 0 36px;min-height:370px;padding:clamp(28px,7vw,76px);display:flex;align-items:center;color:white;background:linear-gradient(90deg,#121711ed,#12171155),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=85') center/cover}
+button.alt{background:transparent;color:var(--ink)}button:disabled{opacity:.5;cursor:not-allowed}
+.hero{margin:18px 0 36px;min-height:370px;padding:clamp(28px,7vw,76px);display:flex;align-items:center;color:white;background:linear-gradient(90deg,#121711ed,#12171155),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=85') center/cover}
 .eyebrow{letter-spacing:4px;color:#d9bd8a;font-size:11px}.hero h1{font:clamp(40px,7vw,72px)/1.02 Georgia,serif;margin:18px 0}.hero p{max-width:470px;line-height:1.7;color:#eee}
 h2{font:32px Georgia,serif}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 22px}.chip{background:var(--paper);color:var(--ink);border:1px solid var(--line)}.chip.active{background:var(--ink);color:white}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}.card{background:var(--paper);border:1px solid var(--line)}.card img{width:100%;aspect-ratio:4/4.7;object-fit:cover;background:#e7e2d7}.body{padding:13px}.cat{font-size:10px;letter-spacing:2px;color:var(--gold)}.body h3{font:20px Georgia,serif;margin:8px 0}.price{font-weight:bold;margin:9px 0 12px}.body button{width:100%}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}.card{background:var(--paper);border:1px solid var(--line)}.card img{width:100%;aspect-ratio:4/4.7;object-fit:cover;background:#e7e2d7}.body{padding:13px}.cat{font-size:10px;letter-spacing:2px;color:var(--gold)}.body h3{font:20px Georgia,serif;margin:8px 0}.price{font-weight:bold;margin:9px 0 12px}.body button{width:100%;margin-top:7px}
 footer{background:#191b17;color:#eee;margin-top:55px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.foot a{color:#eee}
-.modal{display:none;position:fixed;inset:0;background:#0009;z-index:5;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.panel{background:var(--paper);width:min(620px,100%);max-height:92vh;overflow:auto;padding:22px}.panel h2{margin-top:0}.field{display:grid;gap:6px;margin:11px 0}.field label{font-size:13px;color:#777}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);background:white}.row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.close{float:right;background:none;color:var(--ink);border:0;font-size:24px;padding:0}.muted{color:#777;font-size:13px}
-@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){nav,.wrap{padding:13px}.logo{font-size:23px}.grid{gap:10px}.body{padding:10px}.body h3{font-size:17px}.hero{min-height:340px}}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:5;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.panel{background:var(--paper);width:min(720px,100%);max-height:92vh;overflow:auto;padding:22px}.panel h2{margin-top:0}.field{display:grid;gap:6px;margin:11px 0}.field label{font-size:13px;color:#777}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);background:white}.row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.close{float:right;background:none;color:var(--ink);border:0;font-size:24px;padding:0}.muted{color:#777;font-size:13px}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px}.detail-img{width:100%;max-height:440px;object-fit:contain;background:#f0ede5}.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.swatch{border:1px solid var(--line);background:white;color:var(--ink);padding:7px}.swatch.active{border:2px solid var(--gold)}.swatch img{width:42px;height:42px;display:block;object-fit:cover;margin-bottom:4px}.cart-line{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}.cart-line img{width:64px;height:70px;object-fit:cover}.qty{display:flex;gap:6px;align-items:center}.qty button{padding:5px 10px}.variant-row{border:1px solid var(--line);padding:10px;margin:8px 0;background:#fff}.order-card{border:1px solid var(--line);padding:12px;margin:10px 0;background:white}.order-card p{margin:5px 0}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){nav,.wrap{padding:13px}.logo{font-size:23px}.grid{gap:10px}.body{padding:10px}.body h3{font-size:17px}.hero{min-height:340px}.detail-layout{grid-template-columns:1fr}.panel{padding:16px}.cart-line{grid-template-columns:54px 1fr}.cart-line>button{grid-column:2}.cart-line img{width:54px;height:60px}}
 </style></head>
 <body>
 <header><nav><div><div class="logo">RIZQA</div><span class="sub">CURATED ESSENTIALS</span></div><div><button class="alt" onclick="openCart()">Cart <span id="count">0</span></button> <button onclick="openAdmin()">Admin</button></div></nav></header>
 <main class="wrap">
 <section class="hero"><div><div class="eyebrow">A THOUGHTFUL WAY TO SHOP</div><h1>Everyday luxury,<br>beautifully chosen.</h1><p>Discover thoughtfully selected fashion, fragrance and pantry favourites — all in one place.</p><a class="btn" style="background:var(--gold);border-color:var(--gold)" href="#shop">Explore Collection</a></div></section>
 <section id="shop"><h2>Our Collection</h2><p class="muted">Find something special, made for your everyday.</p><div id="filters" class="filters"></div><div id="products" class="grid"></div></section>
-</main><footer><div class="foot"><div><div class="logo">RIZQA</div><p class="muted">Curated essentials for a considered lifestyle.</p></div><div><b>Connect with us</b><p><a href="https://www.facebook.com/share/1aJJyvYRX4/" target="_blank">Facebook</a> · <a href="https://www.instagram.com/rizqa.zoon?mdxt=cGxqaDd2aDk0dTRo" target="_blank">Instagram</a> · <a href="https://tiktok.com/@rizqa_zoon" target="_blank">TikTok</a></p></div></div></footer>
-<div class="modal" id="cartModal"><div class="panel"><button class="close" onclick="closeModal('cartModal')">×</button><h2>Your Cart</h2><div id="cartItems"></div><div class="field"><label>Your name</label><input id="buyerName" placeholder="নাম"></div><div class="field"><label>Phone number</label><input id="buyerPhone" placeholder="01XXXXXXXXX"></div><div class="field"><label>Delivery address</label><textarea id="buyerAddress" rows="3" placeholder="সম্পূর্ণ ঠিকানা"></textarea></div><button onclick="checkout()">Order via WhatsApp</button></div></div>
-<div class="modal" id="adminModal"><div class="panel"><button class="close" onclick="closeModal('adminModal')">×</button><h2>RIZQA Admin</h2><div id="loginBox"><p class="muted">Sign in to manage the catalogue.</p><div class="field"><label>Username</label><input id="adminUser" value="admin"></div><div class="field"><label>Password</label><input id="adminPass" type="password"></div><button onclick="login()">Sign in</button></div><div id="adminBox" hidden><h3>Add / Edit Product</h3><input id="editId" type="hidden"><div class="field"><label>Product name</label><input id="pname"></div><div class="field"><label>Category</label><select id="pcat"><option>Fashion</option><option>Perfume</option><option>Dry Foods</option><option>Accessories</option><option>Other</option></select></div><div class="field"><label>Price (৳)</label><input id="pprice" type="number" min="0"></div><div class="field"><label>Product photo</label><input id="pfile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div><div class="field"><label>Description</label><textarea id="pdesc" rows="2"></textarea></div><div class="row"><button onclick="saveProduct()">Save product</button><button class="alt" onclick="resetForm()">Clear</button><button class="alt" onclick="logout()">Sign out</button></div><h3>Products</h3><div id="manage"></div></div></div></div>
+</main>
+<footer><div class="foot"><div><div class="logo">RIZQA</div><p class="muted">Curated essentials for a considered lifestyle.</p></div><div><b>Connect with us</b><p><a href="https://www.facebook.com/share/1aJJyvYRX4/" target="_blank">Facebook</a> · <a href="https://www.instagram.com/rizqa.zoon?mdxt=cGxqaDd2aDk0dTRo" target="_blank">Instagram</a> · <a href="https://tiktok.com/@rizqa_zoon" target="_blank">TikTok</a></p></div></div></footer>
+
+<div class="modal" id="detailModal"><div class="panel"><button class="close" onclick="closeModal('detailModal')">×</button><div id="detailContent"></div></div></div>
+<div class="modal" id="cartModal"><div class="panel"><button class="close" onclick="closeModal('cartModal')">×</button><h2>Your Cart</h2><div id="cartItems"></div><div id="cartTotal"></div><h3>Delivery Details</h3><div class="field"><label>Your name</label><input id="buyerName" placeholder="নাম"></div><div class="field"><label>Phone number</label><input id="buyerPhone" placeholder="01XXXXXXXXX"></div><div class="field"><label>Delivery address</label><textarea id="buyerAddress" rows="3" placeholder="সম্পূর্ণ ঠিকানা"></textarea></div><div class="row"><button onclick="placeWebsiteOrder()">Place Website Order</button><button class="alt" onclick="checkoutWhatsApp()">Order via WhatsApp</button></div><p class="muted">Website Order সরাসরি RIZQA-তে জমা হবে। WhatsApp Order পাঠাতে WhatsApp-এ Send চাপতে হবে।</p></div></div>
+<div class="modal" id="adminModal"><div class="panel"><button class="close" onclick="closeModal('adminModal')">×</button><h2>RIZQA Admin</h2><div id="loginBox"><p class="muted">Sign in to manage the catalogue.</p><div class="field"><label>Username</label><input id="adminUser" value="admin"></div><div class="field"><label>Password</label><input id="adminPass" type="password"></div><button onclick="login()">Sign in</button></div><div id="adminBox" hidden>
+<h3>Add / Edit Product</h3><input id="editId" type="hidden">
+<div class="field"><label>Product name</label><input id="pname"></div>
+<div class="field"><label>Category</label><select id="pcat"><option>Fashion</option><option>Clothing</option><option>Perfume</option><option>Dry Foods</option><option>Accessories</option><option>Other</option></select></div>
+<div class="field"><label>Price (৳)</label><input id="pprice" type="number" min="0"></div>
+<div class="field"><label>Main product photo (optional if color photos are added)</label><input id="pfile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div>
+<div class="field"><label>Description</label><textarea id="pdesc" rows="3"></textarea></div>
+<h3>Available Colors & Photos</h3><p class="muted">প্রতিটি রঙের নাম লিখে সেই রঙের আলাদা ছবি Upload করো।</p><div id="variantEditor"></div><button class="alt" type="button" onclick="addVariantRow()">+ Add Color</button>
+<div class="row"><button onclick="saveProduct()">Save product</button><button class="alt" onclick="resetForm()">Clear</button><button class="alt" onclick="logout()">Sign out</button></div>
+<h3>Products</h3><div id="manage"></div><h3>Customer Orders</h3><div id="orders"></div><button class="alt" onclick="loadOrders()">Refresh Orders</button>
+</div></div></div>
+
 <script>
-const WA='8801602918071';let products=[],cart=[],filter='All',admin=false;
+const WA='8801602918071';
+let products=[],cart=[],filter='All',admin=false,detailProduct=null,selectedVariant=null;
 const $=id=>document.getElementById(id);
 async function api(url,opts={}){let r=await fetch(url,{...opts,headers:{...(opts.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(opts.headers||{})}});let data=await r.json().catch(()=>({}));if(!r.ok)throw Error(data.error||'Something went wrong');return data}
-async function load(){products=await api('/api/products');render()}
-function render(){let cats=['All',...new Set(products.map(p=>p.category))];$('filters').innerHTML=cats.map(c=>`<button class="chip ${filter===c?'active':''}" onclick="filter='${esc(c)}';render()">${esc(c)}</button>`).join('');let list=products.filter(p=>filter==='All'||p.category===filter);$('products').innerHTML=list.length?list.map(p=>`<article class="card"><img src="${esc(p.image||'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80')}" alt="${esc(p.name)}"><div class="body"><div class="cat">${esc(p.category)}</div><h3>${esc(p.name)}</h3><div class="muted">${esc(p.description||'')}</div><div class="price">৳${Number(p.price).toLocaleString('en-BD')}</div><button onclick="addCart(${p.id})">Add to cart</button></div></article>`).join(''):'<p class="muted">Products will appear here soon.</p>';$('count').textContent=cart.length}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function show(id){$(id).classList.add('open')}function closeModal(id){$(id).classList.remove('open')}
-function addCart(id){let p=products.find(x=>x.id===id);if(p){cart.push(p);$('count').textContent=cart.length}}
-function openCart(){show('cartModal');$('cartItems').innerHTML=cart.length?cart.map(p=>`<p>${esc(p.name)} — ৳${p.price}</p>`).join('')+`<b>Total: ৳${cart.reduce((s,p)=>s+p.price,0)}</b>`:'Cart is empty.'}
-function checkout(){if(!cart.length)return alert('Cart is empty.');let n=$('buyerName').value.trim(),ph=$('buyerPhone').value.trim(),ad=$('buyerAddress').value.trim();if(!n||!ph||!ad)return alert('Please enter your name, phone and address.');let total=cart.reduce((s,p)=>s+p.price,0),lines=cart.map(p=>`• ${p.name} — ৳${p.price}`).join('\\n');let msg=`RIZQA ORDER\\nName: ${n}\\nPhone: ${ph}\\nAddress: ${ad}\\n\\n${lines}\\n\\nTotal: ৳${total}`;window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank')}
+async function load(){products=await api('/api/products');render()}
+function render(){
+ let cats=['All',...new Set(products.map(p=>p.category))];
+ $('filters').innerHTML=cats.map(c=>`<button class="chip ${filter===c?'active':''}" onclick="setFilter('${esc(c)}')">${esc(c)}</button>`).join('');
+ let list=products.filter(p=>filter==='All'||p.category===filter);
+ $('products').innerHTML=list.length?list.map(p=>`<article class="card"><img src="${esc(p.image||p.variants?.[0]?.image||'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80')}" alt="${esc(p.name)}"><div class="body"><div class="cat">${esc(p.category)}</div><h3>${esc(p.name)}</h3><div class="muted">${esc(p.description||'')}</div><div class="price">৳${Number(p.price).toLocaleString('en-BD')}</div><button onclick="addCart(${p.id})">Add to Cart</button><button class="alt" onclick="openDetails(${p.id})">Order করুন · Details</button></div></article>`).join(''):'<p class="muted">Products will appear here soon.</p>';
+ updateCount();
+}
+function setFilter(c){filter=c;render()}
+function updateCount(){$('count').textContent=cart.reduce((n,i)=>n+i.quantity,0)}
+function getVariant(p,name){return (p.variants||[]).find(v=>v.name===name)}
+function addCart(id,variantName=''){
+ let p=products.find(x=>Number(x.id)===Number(id));if(!p)return;
+ if((p.variants||[]).length&&!variantName){openDetails(id);return}
+ let key=`${p.id}::${variantName}`;
+ let old=cart.find(i=>i.key===key);
+ if(old)old.quantity++;else{let v=getVariant(p,variantName);cart.push({key,productId:p.id,name:p.name,price:Number(p.price),variantName,image:v?.image||p.image||'',quantity:1})}
+ updateCount();alert('Cart-এ যোগ হয়েছে।');
+}
+function openDetails(id){
+ detailProduct=products.find(p=>Number(p.id)===Number(id));if(!detailProduct)return;
+ selectedVariant=detailProduct.variants?.[0]?.name||'';
+ renderDetails();show('detailModal');
+}
+function renderDetails(){
+ let p=detailProduct,v=getVariant(p,selectedVariant),img=v?.image||p.image||'';
+ let variants=p.variants||[];
+ $('detailContent').innerHTML=`<div class="detail-layout"><div><img class="detail-img" src="${esc(img)}" alt="${esc(p.name)}"></div><div><div class="cat">${esc(p.category)}</div><h2>${esc(p.name)}</h2><div class="price">৳${Number(p.price).toLocaleString('en-BD')}</div><p>${esc(p.description||'')}</p>${variants.length?`<b>Available Colors</b><div class="swatches">${variants.map(x=>`<button class="swatch ${selectedVariant===x.name?'active':''}" onclick="chooseVariant('${esc(x.name)}')">${x.image?`<img src="${esc(x.image)}">`:''}${esc(x.name)}</button>`).join('')}</div>`:'<p class="muted">Color option নেই।</p>'}<button onclick="addDetailToCart()">Add Selected to Cart</button></div></div>`;
+}
+function chooseVariant(name){selectedVariant=name;renderDetails()}
+function addDetailToCart(){if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');addCart(detailProduct.id,selectedVariant);closeModal('detailModal')}
+function openCart(){renderCart();show('cartModal')}
+function renderCart(){
+ $('cartItems').innerHTML=cart.length?cart.map((i,n)=>`<div class="cart-line"><img src="${esc(i.image)}"><div><b>${esc(i.name)}</b><div class="muted">${i.variantName?'Color: '+esc(i.variantName):'Standard'}</div><div>৳${i.price.toLocaleString('en-BD')} × ${i.quantity}</div><div class="qty"><button class="alt" onclick="changeQty(${n},-1)">−</button><span>${i.quantity}</span><button class="alt" onclick="changeQty(${n},1)">+</button></div></div><button class="alt" onclick="removeCart(${n})">Delete</button></div>`).join(''):'<p class="muted">Cart is empty.</p>';
+ let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);$('cartTotal').innerHTML=`<h3>Total: ৳${total.toLocaleString('en-BD')}</h3>`;updateCount();
+}
+function changeQty(n,d){if(!cart[n])return;cart[n].quantity+=d;if(cart[n].quantity<1)cart.splice(n,1);renderCart()}
+function removeCart(n){cart.splice(n,1);renderCart()}
+function customerDetails(){let n=$('buyerName').value.trim(),ph=$('buyerPhone').value.trim(),ad=$('buyerAddress').value.trim();if(!n||!ph||!ad){alert('নাম, ফোন নম্বর ও সম্পূর্ণ ঠিকানা দিন।');return null}return{n,ph,ad}}
+function checkoutWhatsApp(){
+ if(!cart.length)return alert('Cart is empty.');let c=customerDetails();if(!c)return;
+ let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
+ let lines=cart.map(i=>`• ${i.name}${i.variantName?' ('+i.variantName+')':''} × ${i.quantity} — ৳${i.price*i.quantity}`).join('\n');
+ let msg=`RIZQA ORDER\nName: ${c.n}\nPhone: ${c.ph}\nAddress: ${c.ad}\n\n${lines}\n\nTotal: ৳${total}`;
+ window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+async function placeWebsiteOrder(){
+ if(!cart.length)return alert('Cart is empty.');let c=customerDetails();if(!c)return;
+ let payload={customerName:c.n,phone:c.ph,address:c.ad,items:cart.map(i=>({productId:i.productId,variantName:i.variantName,quantity:i.quantity}))};
+ try{let result=await api('/api/orders',{method:'POST',body:JSON.stringify(payload)});alert(`অর্ডার সফল হয়েছে!\nOrder Number: ${result.order.order_number}\nTotal: ৳${result.order.total_amount}`);cart=[];updateCount();renderCart()}
+ catch(e){alert(e.message)}
+}
 function openAdmin(){show('adminModal');api('/api/admin/session').then(s=>{admin=s.loggedIn;toggleAdmin()}).catch(()=>{})}
-function toggleAdmin(){$('loginBox').hidden=admin;$('adminBox').hidden=!admin;if(admin)manage()}
+function toggleAdmin(){$('loginBox').hidden=admin;$('adminBox').hidden=!admin;if(admin){manage();loadOrders()}}
 async function login(){try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({username:$('adminUser').value,password:$('adminPass').value})});admin=true;toggleAdmin()}catch(e){alert(e.message)}}
 async function logout(){await api('/api/admin/logout',{method:'POST'});admin=false;toggleAdmin()}
-async function saveProduct(){try{let id=$('editId').value,image='';if($('pfile').files[0]){let fd=new FormData();fd.append('image',$('pfile').files[0]);let up=await fetch('/api/admin/upload',{method:'POST',body:fd});let j=await up.json();if(!up.ok)throw Error(j.error);image=j.image}else if(id){image=products.find(p=>p.id==id)?.image||''}
-let payload={name:$('pname').value,category:$('pcat').value,price:Number($('pprice').value),description:$('pdesc').value,image};await api(id?`/api/admin/products/${id}`:'/api/admin/products',{method:id?'PUT':'POST',body:JSON.stringify(payload)});resetForm();await load();manage();alert('Product saved.')}catch(e){alert(e.message)}}
-function resetForm(){['editId','pname','pprice','pdesc'].forEach(id=>$(id).value='');$('pfile').value=''}
+function addVariantRow(name='',image=''){
+ let id='v'+Math.random().toString(36).slice(2);
+ let div=document.createElement('div');div.className='variant-row';div.dataset.id=id;
+ div.innerHTML=`<div class="field"><label>Color name</label><input class="vname" value="${esc(name)}" placeholder="যেমন: Black / Yellow"></div><div class="field"><label>এই Color-এর ছবি</label><input class="vfile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><input class="vimage" type="hidden" value="${esc(image)}"><span class="muted vstatus">${image?'ছবি আগে থেকেই যুক্ত আছে':'ছবি নির্বাচন করো'}</span></div><button class="alt" type="button" onclick="this.parentElement.remove()">Remove Color</button>`;
+ $('variantEditor').appendChild(div);
+}
+async function uploadImage(file){let fd=new FormData();fd.append('image',file);let r=await fetch('/api/admin/upload',{method:'POST',body:fd});let j=await r.json();if(!r.ok)throw Error(j.error||'Image upload failed');return j.image}
+async function saveProduct(){
+ try{
+  let id=$('editId').value,image='';
+  if($('pfile').files[0])image=await uploadImage($('pfile').files[0]);
+  else if(id)image=products.find(p=>p.id==id)?.image||'';
+  let variants=[];
+  for(const row of $('variantEditor').children){
+   let name=row.querySelector('.vname').value.trim(),vimage=row.querySelector('.vimage').value;
+   if(!name)continue;
+   let file=row.querySelector('.vfile').files[0];if(file)vimage=await uploadImage(file);
+   if(!vimage)throw Error(`${name} Color-এর ছবি Upload করো।`);
+   variants.push({name,image:vimage});
+  }
+  let payload={name:$('pname').value,category:$('pcat').value,price:Number($('pprice').value),description:$('pdesc').value,image,variants};
+  await api(id?`/api/admin/products/${id}`:'/api/admin/products',{method:id?'PUT':'POST',body:JSON.stringify(payload)});
+  resetForm();await load();manage();alert('Product saved.');
+ }catch(e){alert(e.message)}
+}
+function resetForm(){['editId','pname','pprice','pdesc'].forEach(id=>$(id).value='');$('pfile').value='';$('variantEditor').innerHTML=''}
 function manage(){$('manage').innerHTML=products.map(p=>`<div style="display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #eee"><span>${esc(p.name)} · ৳${p.price}</span><span><button class="alt" onclick="editProduct(${p.id})">Edit</button> <button class="alt" onclick="deleteProduct(${p.id})">Delete</button></span></div>`).join('')||'<p class="muted">No products yet.</p>'}
-function editProduct(id){let p=products.find(x=>x.id===id);$('editId').value=p.id;$('pname').value=p.name;$('pcat').value=p.category;$('pprice').value=p.price;$('pdesc').value=p.description||''}
+function editProduct(id){let p=products.find(x=>x.id===id);$('editId').value=p.id;$('pname').value=p.name;$('pcat').value=p.category;$('pprice').value=p.price;$('pdesc').value=p.description||'';$('variantEditor').innerHTML='';(p.variants||[]).forEach(v=>addVariantRow(v.name,v.image))}
 async function deleteProduct(id){if(!confirm('Delete this product?'))return;try{await api(`/api/admin/products/${id}`,{method:'DELETE'});await load();manage()}catch(e){alert(e.message)}}
+async function loadOrders(){
+ try{let orders=await api('/api/admin/orders');$('orders').innerHTML=orders.length?orders.map(o=>`<div class="order-card"><b>${esc(o.order_number)} · ৳${Number(o.total_amount).toLocaleString('en-BD')}</b><p>${esc(o.customer_name)} · ${esc(o.phone)}</p><p>${esc(o.address)}</p><p>${(o.items||[]).map(i=>`${esc(i.name)} ${i.color?'('+esc(i.color)+')':''} × ${i.quantity}`).join('<br>')}</p><div class="row"><select id="status${o.id}">${['Pending','Confirmed','Shipped','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button onclick="updateOrderStatus(${o.id})">Update Status</button></div><span class="muted">Status: ${esc(o.status)} · ${new Date(o.created_at).toLocaleString('bn-BD')}</span></div>`).join(''):'<p class="muted">এখনো কোনো অর্ডার আসেনি।</p>'}
+ catch(e){$('orders').innerHTML=`<p class="muted">${esc(e.message)}</p>`}
+}
+async function updateOrderStatus(id){try{await api(`/api/admin/orders/${id}`,{method:'PATCH',body:JSON.stringify({status:$('status'+id).value})});alert('Order status updated.');loadOrders()}catch(e){alert(e.message)}}
 load().catch(e=>{$('products').innerHTML='<p>Could not load products. Please refresh.</p>'});
 </script></body></html>
