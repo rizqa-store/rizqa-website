@@ -235,6 +235,37 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
+// Customers can check only their own order using order number + phone.
+app.post('/api/orders/track', async (req, res) => {
+  try {
+    const orderNumber = String(req.body?.orderNumber || '').trim();
+    const phone = String(req.body?.phone || '').replace(/\D/g, '');
+    if (!orderNumber || !phone) return res.status(400).json({ error: 'Order Number ও ফোন নম্বর দিন।' });
+
+    const { data: order, error } = await supabase.from('orders')
+      .select('order_number, phone, status, total_amount, items, created_at')
+      .eq('order_number', orderNumber).maybeSingle();
+    if (error) return sendSupabaseError(res, error);
+
+    const savedPhone = String(order?.phone || '').replace(/\D/g, '');
+    if (!order || !savedPhone || savedPhone !== phone) {
+      return res.status(404).json({ error: 'এই Order Number ও ফোন নম্বরের মিল পাওয়া যায়নি।' });
+    }
+    res.json({
+      order: {
+        order_number: order.order_number,
+        status: order.status,
+        total_amount: order.total_amount,
+        items: order.items,
+        created_at: order.created_at
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'অর্ডারের তথ্য পাওয়া যায়নি। আবার চেষ্টা করুন।' });
+  }
+});
+
 app.get('/api/admin/orders', requireAdmin, async (_req, res) => {
   const { data, error } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
   if (error) return sendSupabaseError(res, error);
