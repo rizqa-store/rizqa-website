@@ -67,6 +67,19 @@ footer{background:#171914;color:#eee;margin-top:70px}.foot{display:flex;justify-
 .admin-delete:hover{background:#9b3535;color:#fff;border-color:#9b3535}
 .admin-muted{color:var(--muted);font-size:13px}
 @media(max-width:700px){.admin-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-kpi{padding:13px}.admin-kpi strong{font-size:23px}.admin-section{padding:13px}.admin-order-tools{grid-template-columns:1fr}.admin-order-meta{grid-template-columns:1fr}}
+
+/* Product description and structured details */
+.product-description{white-space:pre-line;line-height:1.8;margin:14px 0 18px;overflow-wrap:anywhere}
+.product-details{margin:18px 0 20px;padding:16px;background:#f8f6f0;border:1px solid var(--line)}
+.product-details h3{font:22px var(--serif);font-weight:400;margin:0 0 13px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.product-detail-list{display:grid;gap:0;margin:0}
+.product-detail-row{display:grid;grid-template-columns:minmax(105px,.8fr) 1.5fr;gap:12px;padding:9px 0;border-bottom:1px solid #eae5dc;line-height:1.6}
+.product-detail-row:last-child{border-bottom:0}
+.product-detail-row dt{font-weight:700;color:#6f5736}
+.product-detail-row dd{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.product-detail-bullets{margin:0;padding-left:19px}
+@media(max-width:620px){.product-details{padding:13px}.product-detail-row{grid-template-columns:1fr;gap:3px;padding:10px 0}}
+
 </style></head>
 <body>
 <header><nav><div><div class="logo">RIZQA</div><span class="sub">CURATED ESSENTIALS</span></div><div class="nav-actions"><button class="alt" onclick="openOrderNow()">Order Now</button><button class="alt" onclick="openTrackOrder()">অর্ডার ট্র্যাক</button><button class="alt" onclick="openCart()">Cart <span id="count">0</span></button><button class="admin-btn" onclick="openAdmin()">Admin</button></div></nav></header>
@@ -107,7 +120,7 @@ footer{background:#171914;color:#eee;margin-top:70px}.foot{display:flex;justify-
 <div class="field"><label>Category</label><select id="pcat"><option>Fashion</option><option>Clothing</option><option>Perfume</option><option>Dry Foods</option><option>Food &amp; Drinks</option><option>Accessories</option><option>Other</option></select></div>
 <div class="field"><label>Price (৳)</label><input id="pprice" type="number" min="0"></div>
 <div class="field"><label>Main product photo (optional if color photos are added)</label><input id="pfile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div>
-<div class="field"><label>Description</label><textarea id="pdesc" rows="3"></textarea></div>
+<div class="field"><label>Description</label><textarea id="pdesc" rows="6" placeholder="Description লিখুন। Product Details - Product Type: ... এভাবে লিখলে ওয়েবসাইটে আলাদা করে সাজানো দেখাবে। প্রতিটি তথ্য নতুন লাইনেও লিখতে পারো।"></textarea></div>
 <h3>Available Colors & Photos</h3><p class="muted">প্রতিটি রঙের নাম লিখে সেই রঙের আলাদা ছবি Upload করো।</p><div id="variantEditor"></div><button class="alt" type="button" onclick="addVariantRow()">+ Add Color</button>
 <div class="row"><button onclick="saveProduct()">Save product</button><button class="alt" onclick="resetForm()">Clear</button></div></section>
 <section class="admin-section"><h3>Product Catalogue</h3><div id="manage"></div></section>
@@ -151,10 +164,38 @@ function openDetails(id){
  selectedVariant=detailProduct.variants?.[0]?.name||'';
  renderDetails();show('detailModal');
 }
+
+function renderProductDescription(raw){
+ const text=String(raw||'').replace(/\r\n?/g,'\n').trim();
+ if(!text)return '';
+ const marker=/\bProduct\s+Details\s*[-:]\s*/i;
+ const split=text.match(marker);
+ if(!split)return `<div class="product-description">${esc(text)}</div>`;
+ const intro=text.slice(0,split.index).trim();
+ const details=text.slice(split.index+split[0].length).trim();
+ const labelPattern=/\b(Product\s+Type|Fabric|Color|Work|Dress\s+Type|Style|Occasion|Package\s+Includes|Available\s+Color)\s*[:\-]\s*/gi;
+ const matches=[...details.matchAll(labelPattern)];
+ if(!matches.length){
+  return `${intro?`<div class="product-description">${esc(intro)}</div>`:''}<section class="product-details"><h3>Product Details</h3><div class="product-description">${esc(details)}</div></section>`;
+ }
+ const rows=matches.map((m,i)=>{
+  const start=m.index+m[0].length;
+  const end=i+1<matches.length?matches[i+1].index:details.length;
+  let value=details.slice(start,end).trim().replace(/(?:\s+-\s*)+$/,'');
+  const label=m[1].replace(/\s+/g,' ');
+  if(/^Package Includes$/i.test(label)){
+   const items=value.split(/\s+-\s+/).map(x=>x.trim()).filter(Boolean);
+   value=items.length>1?`<ul class="product-detail-bullets">${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:esc(value);
+  }else value=esc(value);
+  return `<div class="product-detail-row"><dt>${esc(label)}</dt><dd>${value}</dd></div>`;
+ }).join('');
+ return `${intro?`<div class="product-description">${esc(intro)}</div>`:''}<section class="product-details"><h3>Product Details</h3><dl class="product-detail-list">${rows}</dl></section>`;
+}
+
 function renderDetails(){
  let p=detailProduct,v=getVariant(p,selectedVariant),img=v?.image||p.image||'';
  let variants=p.variants||[];
- $('detailContent').innerHTML=`<div class="detail-layout"><div><img class="detail-img" src="${esc(img)}" alt="${esc(p.name)}"></div><div><div class="cat">${esc(p.category)}</div><h2>${esc(p.name)}</h2><div class="price">৳${Number(p.price).toLocaleString('en-BD')}</div><p>${esc(p.description||'')}</p>${variants.length?`<b>Available Colors</b><div class="swatches">${variants.map(x=>`<button class="swatch ${selectedVariant===x.name?'active':''}" onclick="chooseVariant('${esc(x.name)}')">${x.image?`<img src="${esc(x.image)}">`:''}${esc(x.name)}</button>`).join('')}</div>`:'<p class="muted">Color option নেই।</p>'}<div class="row"><button onclick="addDetailToCart()">Add Selected to Cart</button><button class="alt" onclick="orderDetailNow()">Order Now</button></div></div></div><section class="review-form"><h3>গ্রাহকদের অভিজ্ঞতা</h3><div id="reviewsList"><span class="muted">রিভিউ লোড হচ্ছে...</span></div><h3>আপনার মূল্যবান মতামত জানান</h3><div class="field"><label>আপনার নাম</label><input id="reviewName" placeholder="আপনার নাম লিখুন"></div><div class="field"><label>পণ্যটি কেমন লেগেছে?</label><select id="reviewRating"><option value="5">★★★★★ — অসাধারণ</option><option value="4">★★★★ — খুব ভালো</option><option value="3">★★★ — ভালো</option><option value="2">★★ — মোটামুটি</option><option value="1">★ — সন্তোষজনক নয়</option></select></div><div class="field"><label>আপনার অভিজ্ঞতা লিখুন</label><textarea id="reviewText" rows="3" placeholder="পণ্যটি সম্পর্কে আপনার অভিজ্ঞতা ও মতামত লিখুন..."></textarea></div><button onclick="submitReview()">মতামত জমা দিন</button><p class="muted">আপনার মতামত জমা দেওয়ার জন্য ধন্যবাদ। যাচাই ও অনুমোদনের পর এটি সবার জন্য প্রকাশ করা হবে।</p></section>`;loadProductReviews(p.id);
+ $('detailContent').innerHTML=`<div class="detail-layout"><div><img class="detail-img" src="${esc(img)}" alt="${esc(p.name)}"></div><div><div class="cat">${esc(p.category)}</div><h2>${esc(p.name)}</h2><div class="price">৳${Number(p.price).toLocaleString('en-BD')}</div>${renderProductDescription(p.description)}${variants.length?`<b>Available Colors</b><div class="swatches">${variants.map(x=>`<button class="swatch ${selectedVariant===x.name?'active':''}" onclick="chooseVariant('${esc(x.name)}')">${x.image?`<img src="${esc(x.image)}">`:''}${esc(x.name)}</button>`).join('')}</div>`:'<p class="muted">Color option নেই।</p>'}<div class="row"><button onclick="addDetailToCart()">Add Selected to Cart</button><button class="alt" onclick="orderDetailNow()">Order Now</button></div></div></div><section class="review-form"><h3>গ্রাহকদের অভিজ্ঞতা</h3><div id="reviewsList"><span class="muted">রিভিউ লোড হচ্ছে...</span></div><h3>আপনার মূল্যবান মতামত জানান</h3><div class="field"><label>আপনার নাম</label><input id="reviewName" placeholder="আপনার নাম লিখুন"></div><div class="field"><label>পণ্যটি কেমন লেগেছে?</label><select id="reviewRating"><option value="5">★★★★★ — অসাধারণ</option><option value="4">★★★★ — খুব ভালো</option><option value="3">★★★ — ভালো</option><option value="2">★★ — মোটামুটি</option><option value="1">★ — সন্তোষজনক নয়</option></select></div><div class="field"><label>আপনার অভিজ্ঞতা লিখুন</label><textarea id="reviewText" rows="3" placeholder="পণ্যটি সম্পর্কে আপনার অভিজ্ঞতা ও মতামত লিখুন..."></textarea></div><button onclick="submitReview()">মতামত জমা দিন</button><p class="muted">আপনার মতামত জমা দেওয়ার জন্য ধন্যবাদ। যাচাই ও অনুমোদনের পর এটি সবার জন্য প্রকাশ করা হবে।</p></section>`;loadProductReviews(p.id);
 }
 async function loadProductReviews(id){try{let rows=await api(`/api/reviews?productId=${id}`);let el=$('reviewsList');if(!el)return;el.innerHTML=rows.length?rows.map(r=>`<div class="review"><div class="rating">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</div><b>${esc(r.customer_name)}</b><p>${esc(r.comment)}</p></div>`).join(''):'<p class="muted">এখনো এই পণ্যটি নিয়ে কোনো মতামত পাওয়া যায়নি। আপনার অভিজ্ঞতা দিয়ে প্রথম মতামতটি শেয়ার করুন।</p>'}catch(e){let el=$('reviewsList');if(el)el.innerHTML='<p class="muted">Review এখন লোড করা যাচ্ছে না।</p>'}}
 async function submitReview(){let name=$('reviewName').value.trim(),comment=$('reviewText').value.trim(),rating=Number($('reviewRating').value);if(!name||!comment)return alert('আপনার নাম ও মতামত লিখুন।');try{await api('/api/reviews',{method:'POST',body:JSON.stringify({productId:detailProduct.id,customerName:name,rating,comment})});$('reviewName').value='';$('reviewText').value='';alert('ধন্যবাদ! আপনার মতামত জমা হয়েছে। যাচাই ও অনুমোদনের পর এটি প্রকাশ করা হবে।')}catch(e){alert(e.message)}}
