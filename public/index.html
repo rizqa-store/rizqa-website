@@ -40,6 +40,33 @@ footer{background:#171914;color:#eee;margin-top:70px}.foot{display:flex;justify-
 @media(max-width:620px){.hero-slider{margin:8px 0 45px}.hero-slide,.hero-slide.active{min-height:390px;padding:28px 24px;background-position:58% center}.hero-slide h1{font-size:clamp(42px,12vw,62px)}.hero-slide p{font-size:14px;max-width:90%}.hero-slide:after{inset:10px}.hero-arrow{width:34px;height:34px;font-size:22px}.hero-prev{left:13px}.hero-next{right:13px}.hero-count{right:23px;bottom:25px;font-size:16px}.hero-dots{bottom:16px}}
 @media(prefers-reduced-motion:reduce){.hero-slide{transition:none}}
 
+
+/* Premium admin workspace */
+#adminModal .panel{width:min(1120px,100%);padding:clamp(18px,3vw,34px);background:#f8f7f3}
+#adminModal .panel>h2{font-size:36px;letter-spacing:-.5px;border-bottom:1px solid var(--line);padding-bottom:17px}
+#adminBox{color:var(--ink)}
+.admin-welcome{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:8px 0 22px}
+.admin-welcome p{margin:5px 0;color:var(--muted);font-size:13px}
+.admin-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 26px}
+.admin-kpi{background:#fff;border:1px solid var(--line);padding:18px;min-width:0;box-shadow:0 5px 18px #28231808}
+.admin-kpi span{display:block;color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.admin-kpi strong{display:block;font:27px var(--serif);margin-top:9px;overflow-wrap:anywhere}
+.admin-section{background:#fffefa;border:1px solid var(--line);padding:20px;margin:18px 0}
+.admin-section>h3{font:24px var(--serif);font-weight:400;margin:0 0 15px}
+.admin-order-tools{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:12px 0 18px}
+.admin-order-tools input,.admin-order-tools select{width:100%;padding:12px;border:1px solid var(--line);background:white;min-width:0}
+.admin-order-card{background:#fff;border:1px solid var(--line);padding:18px;margin:12px 0;box-shadow:0 5px 18px #28231808}
+.admin-order-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.admin-order-number{font:20px var(--serif)}
+.admin-status{display:inline-block;padding:5px 10px;background:#f1eadc;color:#765a2d;font-size:11px;letter-spacing:.4px}
+.admin-order-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0;color:#5e5c55;font-size:13px}
+.admin-order-items{padding:12px;background:#f7f5ef;line-height:1.8;font-size:13px}
+.admin-order-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.admin-order-actions select{padding:10px;border:1px solid var(--line);background:#fff;min-width:130px}
+.admin-delete{background:#fff;color:#9b3535;border:1px solid #e8caca}
+.admin-delete:hover{background:#9b3535;color:#fff;border-color:#9b3535}
+.admin-muted{color:var(--muted);font-size:13px}
+@media(max-width:700px){.admin-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-kpi{padding:13px}.admin-kpi strong{font-size:23px}.admin-section{padding:13px}.admin-order-tools{grid-template-columns:1fr}.admin-order-meta{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header><nav><div><div class="logo">RIZQA</div><span class="sub">CURATED ESSENTIALS</span></div><div class="nav-actions"><button class="alt" onclick="openOrderNow()">Order Now</button><button class="alt" onclick="openTrackOrder()">অর্ডার ট্র্যাক</button><button class="alt" onclick="openCart()">Cart <span id="count">0</span></button><button class="admin-btn" onclick="openAdmin()">Admin</button></div></nav></header>
@@ -72,15 +99,19 @@ footer{background:#171914;color:#eee;margin-top:70px}.foot{display:flex;justify-
 <div class="modal" id="cartModal"><div class="panel"><button class="close" onclick="closeModal('cartModal')">×</button><h2>আপনার Cart</h2><div id="cartItems"></div><div id="cartTotal"></div><h3>ডেলিভারির তথ্য</h3><div class="field"><label>আপনার নাম</label><input id="buyerName" placeholder="নাম"></div><div class="field"><label>মোবাইল নম্বর</label><input id="buyerPhone" placeholder="01XXXXXXXXX"></div><div class="field"><label>সম্পূর্ণ ডেলিভারি ঠিকানা</label><textarea id="buyerAddress" rows="3" placeholder="সম্পূর্ণ ঠিকানা"></textarea></div><div class="row"><button onclick="placeWebsiteOrder()">অর্ডার নিশ্চিত করুন</button><button class="alt" onclick="checkoutWhatsApp()">WhatsApp-এ অর্ডার</button></div><p class="muted">Website Order সরাসরি RIZQA-তে জমা হবে। WhatsApp Order পাঠাতে WhatsApp-এ Send চাপতে হবে।</p></div></div>
 <div class="modal" id="trackModal"><div class="panel"><button class="close" onclick="closeModal('trackModal')">×</button><h2>আপনার অর্ডার ট্র্যাক করুন</h2><p class="muted">তোমার Order Number এবং অর্ডার করার সময় দেওয়া ফোন নম্বর লিখে Status দেখো।</p><div class="field"><label>Order Number</label><input id="trackOrderNumber" placeholder="যেমন: RZ123456789"></div><div class="field"><label>অর্ডারের সময় দেওয়া মোবাইল নম্বর</label><input id="trackPhone" type="tel" placeholder="01XXXXXXXXX"></div><button onclick="trackOrder()">অর্ডারের অবস্থা দেখুন</button><div id="trackResult" style="margin-top:16px"></div></div></div>
 <div class="modal" id="adminModal"><div class="panel"><button class="close" onclick="closeModal('adminModal')">×</button><h2>RIZQA Admin</h2><div id="loginBox"><p class="muted">Sign in to manage the catalogue.</p><div class="field"><label>Username</label><input id="adminUser" value="admin"></div><div class="field"><label>Password</label><input id="adminPass" type="password"></div><button onclick="login()">Sign in</button></div><div id="adminBox" hidden>
-<h3>Add / Edit Product</h3><input id="editId" type="hidden">
+<div class="admin-welcome"><div><div class="section-kicker">RIZQA CONTROL CENTER</div><h2 style="margin:7px 0 0">Dashboard Overview</h2><p>আপনার অনলাইন স্টোরের কার্যক্রম এক জায়গা থেকে পরিচালনা করুন।</p></div><button class="alt" onclick="logout()">Sign out</button></div>
+<div class="admin-kpis"><div class="admin-kpi"><span>Total Products</span><strong id="statProducts">—</strong></div><div class="admin-kpi"><span>Total Orders</span><strong id="statOrders">—</strong></div><div class="admin-kpi"><span>Pending Orders</span><strong id="statPending">—</strong></div><div class="admin-kpi"><span>Order Revenue</span><strong id="statRevenue">—</strong></div></div>
+<section class="admin-section"><h3>Customer Orders</h3><div class="admin-order-tools"><input id="adminOrderSearch" type="search" placeholder="Order number, customer name or phone..." oninput="renderAdminOrders()"><select id="adminOrderFilter" onchange="renderAdminOrders()"><option value="All">All order statuses</option><option>Pending</option><option>Confirmed</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option></select></div><div id="orders"></div><button class="alt" onclick="loadOrders()">Refresh Orders</button></section>
+<section class="admin-section"><h3>Add / Edit Product</h3><input id="editId" type="hidden">
 <div class="field"><label>Product name</label><input id="pname"></div>
 <div class="field"><label>Category</label><select id="pcat"><option>Fashion</option><option>Clothing</option><option>Perfume</option><option>Dry Foods</option><option>Food &amp; Drinks</option><option>Accessories</option><option>Other</option></select></div>
 <div class="field"><label>Price (৳)</label><input id="pprice" type="number" min="0"></div>
 <div class="field"><label>Main product photo (optional if color photos are added)</label><input id="pfile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div>
 <div class="field"><label>Description</label><textarea id="pdesc" rows="3"></textarea></div>
 <h3>Available Colors & Photos</h3><p class="muted">প্রতিটি রঙের নাম লিখে সেই রঙের আলাদা ছবি Upload করো।</p><div id="variantEditor"></div><button class="alt" type="button" onclick="addVariantRow()">+ Add Color</button>
-<div class="row"><button onclick="saveProduct()">Save product</button><button class="alt" onclick="resetForm()">Clear</button><button class="alt" onclick="logout()">Sign out</button></div>
-<h3>Products</h3><div id="manage"></div><h3>Customer Orders</h3><div id="orders"></div><button class="alt" onclick="loadOrders()">Refresh Orders</button><h3>গ্রাহকদের মতামত · অনুমোদন</h3><div id="reviewsAdmin"></div><button class="alt" onclick="loadAdminReviews()">মতামত রিফ্রেশ করুন</button>
+<div class="row"><button onclick="saveProduct()">Save product</button><button class="alt" onclick="resetForm()">Clear</button></div></section>
+<section class="admin-section"><h3>Product Catalogue</h3><div id="manage"></div></section>
+<section class="admin-section"><h3>Customer Reviews · Moderation</h3><div id="reviewsAdmin"></div><button class="alt" onclick="loadAdminReviews()">Refresh Reviews</button></section>
 </div></div></div>
 
 <script>
@@ -90,7 +121,7 @@ const $=id=>document.getElementById(id);
 async function api(url,opts={}){let r=await fetch(url,{...opts,headers:{...(opts.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(opts.headers||{})}});let data=await r.json().catch(()=>({}));if(!r.ok)throw Error(data.error||'Something went wrong');return data}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function show(id){$(id).classList.add('open')}function closeModal(id){$(id).classList.remove('open')}
-async function load(){products=await api('/api/products');render()}
+async function load(){products=await api('/api/products');render();if(admin)updateAdminStats()}
 function render(){
  let cats=['All',...new Set(products.map(p=>p.category))];
  $('categoryFilter').innerHTML=cats.map(c=>`<option value="${esc(c)}" ${filter===c?'selected':''}>${c==='All'?'সব Category':esc(c)}</option>`).join('');
@@ -222,11 +253,38 @@ function editProduct(id){let p=products.find(x=>x.id===id);$('editId').value=p.i
 async function deleteProduct(id){if(!confirm('Delete this product?'))return;try{await api(`/api/admin/products/${id}`,{method:'DELETE'});await load();manage()}catch(e){alert(e.message)}}
 async function loadAdminReviews(){try{let rows=await api('/api/admin/reviews');$('reviewsAdmin').innerHTML=rows.length?rows.map(r=>`<div class="order-card"><b>${esc(r.customer_name)} · ${'★'.repeat(Number(r.rating))}</b><p>${esc(r.product_name||'Product')} · ${esc(r.comment)}</p><p class="muted">Status: ${esc(r.status)}</p><div class="row"><button onclick="moderateReview(${r.id},'Approved')">Approve</button><button class="alt" onclick="moderateReview(${r.id},'Rejected')">Reject</button></div></div>`).join(''):'<p class="muted">এখনো কোনো গ্রাহকের মতামত আসেনি।</p>'}catch(e){$('reviewsAdmin').innerHTML=`<p class="muted">${esc(e.message)}</p>`}}
 async function moderateReview(id,status){try{await api(`/api/admin/reviews/${id}`,{method:'PATCH',body:JSON.stringify({status})});loadAdminReviews()}catch(e){alert(e.message)}}
+let adminOrders=[];
+function updateAdminStats(){
+ $('statProducts').textContent=products.length.toLocaleString('en-BD');
+ $('statOrders').textContent=adminOrders.length.toLocaleString('en-BD');
+ $('statPending').textContent=adminOrders.filter(o=>o.status==='Pending').length.toLocaleString('en-BD');
+ const revenue=adminOrders.filter(o=>o.status!=='Cancelled').reduce((sum,o)=>sum+Number(o.total_amount||0),0);
+ $('statRevenue').textContent='৳'+revenue.toLocaleString('en-BD');
+}
+function renderAdminOrders(){
+ const q=($('adminOrderSearch')?.value||'').trim().toLowerCase();
+ const status=$('adminOrderFilter')?.value||'All';
+ const rows=adminOrders.filter(o=>(status==='All'||o.status===status)&&(!q||[o.order_number,o.customer_name,o.phone].some(v=>String(v||'').toLowerCase().includes(q))));
+ $('orders').innerHTML=rows.length?rows.map(o=>`<article class="admin-order-card">
+  <div class="admin-order-top"><div><div class="admin-order-number">${esc(o.order_number)}</div><div class="admin-muted">${new Date(o.created_at).toLocaleString('bn-BD')}</div></div><span class="admin-status">${esc(o.status)}</span></div>
+  <div class="admin-order-meta"><div><b>Customer</b><br>${esc(o.customer_name)}</div><div><b>Phone</b><br>${esc(o.phone)}</div><div><b>Total</b><br><strong>৳${Number(o.total_amount).toLocaleString('en-BD')}</strong></div><div><b>Delivery Address</b><br>${esc(o.address)}</div></div>
+  <div class="admin-order-items"><b>Items</b><br>${(o.items||[]).map(i=>`${esc(i.name)} ${i.color?'('+esc(i.color)+')':''} × ${Number(i.quantity)||1}`).join('<br>')}</div>
+  <div class="admin-order-actions"><select id="status${o.id}">${['Pending','Confirmed','Shipped','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button onclick="updateOrderStatus(${o.id})">Update Status</button><button class="admin-delete" onclick="deleteOrder(${o.id})">Delete Order</button></div>
+ </article>`).join(''):'<p class="admin-muted">এই Filter-এ কোনো অর্ডার পাওয়া যায়নি।</p>';
+}
 async function loadOrders(){
- try{let orders=await api('/api/admin/orders');$('orders').innerHTML=orders.length?orders.map(o=>`<div class="order-card"><b>${esc(o.order_number)} · ৳${Number(o.total_amount).toLocaleString('en-BD')}</b><p>${esc(o.customer_name)} · ${esc(o.phone)}</p><p>${esc(o.address)}</p><p>${(o.items||[]).map(i=>`${esc(i.name)} ${i.color?'('+esc(i.color)+')':''} × ${i.quantity}`).join('<br>')}</p><div class="row"><select id="status${o.id}">${['Pending','Confirmed','Shipped','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button onclick="updateOrderStatus(${o.id})">Update Status</button></div><span class="muted">Status: ${esc(o.status)} · ${new Date(o.created_at).toLocaleString('bn-BD')}</span></div>`).join(''):'<p class="muted">এখনো কোনো অর্ডার আসেনি।</p>'}
+ try{adminOrders=await api('/api/admin/orders');updateAdminStats();renderAdminOrders()}
  catch(e){$('orders').innerHTML=`<p class="muted">${esc(e.message)}</p>`}
 }
-async function updateOrderStatus(id){try{await api(`/api/admin/orders/${id}`,{method:'PATCH',body:JSON.stringify({status:$('status'+id).value})});alert('Order status updated.');loadOrders()}catch(e){alert(e.message)}}
+async function updateOrderStatus(id){try{await api(`/api/admin/orders/${id}`,{method:'PATCH',body:JSON.stringify({status:$('status'+id).value})});await loadOrders();alert('Order status updated.')}catch(e){alert(e.message)}}
+async function deleteOrder(id){
+ const order=adminOrders.find(o=>Number(o.id)===Number(id));
+ if(!order)return;
+ if(!confirm(`আপনি কি ${order.order_number} অর্ডারটি স্থায়ীভাবে Delete করতে চান? এই কাজ Undo করা যাবে না।`))return;
+ try{await api(`/api/admin/orders/${id}`,{method:'DELETE'});adminOrders=adminOrders.filter(o=>Number(o.id)!==Number(id));updateAdminStats();renderAdminOrders();alert('Order deleted successfully.')}
+ catch(e){alert(e.message)}
+}
+
 load().catch(e=>{$('products').innerHTML='<p>Could not load products. Please refresh.</p>'});
 </script>
 <script>

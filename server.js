@@ -283,6 +283,16 @@ app.patch('/api/admin/orders/:id', requireAdmin, async (req, res) => {
   res.json({ ok: true });
 });
 
+// Permanently delete an order. Admin session is required.
+app.delete('/api/admin/orders/:id', requireAdmin, async (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isSafeInteger(id) || id < 1) return res.status(400).json({ error: 'Invalid order ID.' });
+  const { data, error } = await supabase.from('orders').delete().eq('id', id).select('id').maybeSingle();
+  if (error) return sendSupabaseError(res, error);
+  if (!data) return res.status(404).json({ error: 'Order not found.' });
+  res.json({ ok: true });
+});
+
 app.get('*', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.use((err, _req, res, _next) => res.status(400).json({ error: err.message || 'Request failed.' }));
 app.listen(PORT, () => console.log(`RIZQA is running on port ${PORT}`));
