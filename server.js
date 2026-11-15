@@ -193,9 +193,11 @@ app.delete('/api/admin/products/:id', requireAdmin, async (req, res) => {
 // Direct website checkout: price and product information are always verified from Supabase.
 app.post('/api/orders', async (req, res) => {
   try {
-    const { customerName, phone, address, items } = req.body || {};
-    if (!customerName?.trim() || !phone?.trim() || !address?.trim())
-      return res.status(400).json({ error: 'নাম, ফোন নম্বর ও ঠিকানা দিন।' });
+    const { customerName, phone, district, address, items } = req.body || {};
+    const districts = ['কুষ্টিয়া','নওগাঁ','ঢাকা','গাজীপুর','নারায়ণগঞ্জ','নরসিংদী','ফরিদপুর','গোপালগঞ্জ','মাদারীপুর','রাজবাড়ী','শরীয়তপুর','টাঙ্গাইল','কিশোরগঞ্জ','মানিকগঞ্জ','মুন্সীগঞ্জ','চট্টগ্রাম','কক্সবাজার','কুমিল্লা','ব্রাহ্মণবাড়িয়া','চাঁদপুর','ফেনী','লক্ষ্মীপুর','নোয়াখালী','রাঙ্গামাটি','খাগড়াছড়ি','বান্দরবান','রাজশাহী','বগুড়া','জয়পুরহাট','চাঁপাইনবাবগঞ্জ','নাটোর','পাবনা','সিরাজগঞ্জ','রংপুর','দিনাজপুর','গাইবান্ধা','কুড়িগ্রাম','লালমনিরহাট','নীলফামারী','পঞ্চগড়','ঠাকুরগাঁও','খুলনা','বাগেরহাট','চুয়াডাঙ্গা','যশোর','ঝিনাইদহ','মাগুরা','মেহেরপুর','নড়াইল','সাতক্ষীরা','বরিশাল','ভোলা','ঝালকাঠি','পটুয়াখালী','পিরোজপুর','সিলেট','হবিগঞ্জ','মৌলভীবাজার','সুনামগঞ্জ','ময়মনসিংহ','জামালপুর','নেত্রকোণা','শেরপুর'];
+    if (!customerName?.trim() || !phone?.trim() || !address?.trim() || !districts.includes(String(district || '').trim()))
+      return res.status(400).json({ error: 'নাম, ফোন নম্বর, সঠিক জেলা ও সম্পূর্ণ ঠিকানা দিন।' });
+    const deliveryCharge = ['কুষ্টিয়া','নওগাঁ'].includes(String(district).trim()) ? 100 : 130;
     if (!Array.isArray(items) || !items.length || items.length > 50)
       return res.status(400).json({ error: 'আপনার Cart-এ কোনো পণ্য নেই।' });
 
@@ -227,18 +229,20 @@ app.post('/api/orders', async (req, res) => {
       });
     }
 
+    total += deliveryCharge;
     const orderNumber = `RZ${Date.now()}`;
+    const fullAddress = `জেলা: ${String(district).trim()}\n${String(address).trim()}`;
     const { data, error: insertError } = await supabase.from('orders').insert({
       order_number: orderNumber,
       customer_name: String(customerName).trim(),
       phone: String(phone).trim(),
-      address: String(address).trim(),
+      address: fullAddress,
       items: verifiedItems,
       total_amount: total,
       status: 'Pending'
     }).select('id, order_number, status, total_amount, created_at').single();
     if (insertError) return sendSupabaseError(res, insertError);
-    res.status(201).json({ ok: true, order: data });
+    res.status(201).json({ ok: true, order: { ...data, delivery_charge: deliveryCharge } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'অর্ডার সম্পন্ন করা যায়নি। আবার চেষ্টা করুন।' });
