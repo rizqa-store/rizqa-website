@@ -56,6 +56,12 @@ function sendSupabaseError(res, error) {
   console.error(error);
   return res.status(500).json({ error: 'Database/storage request failed. Please try again.' });
 }
+function cleanOfferPrice(value, regularPrice) {
+  if (value === null || value === undefined || String(value).trim() === '') return null;
+  const offer = Number(value);
+  if (!Number.isInteger(offer) || offer < 1 || offer >= Number(regularPrice)) return NaN;
+  return offer;
+}
 function cleanVariants(value) {
   if (!Array.isArray(value)) return [];
   return value.map(v => ({
@@ -145,15 +151,16 @@ app.post('/api/admin/upload', requireAdmin, upload.single('image'), async (req, 
 
 app.post('/api/admin/products', requireAdmin, async (req, res) => {
   const { name, category, price, description = '', image = '' } = req.body || {};
-  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0)
-    return res.status(400).json({ error: 'Product name, category and valid price are required.' });
+  const offerPrice = cleanOfferPrice(req.body?.offerPrice, price);
+  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || Number.isNaN(offerPrice))
+    return res.status(400).json({ error: 'Product name, category, valid regular price and a lower offer price are required.' });
 
   const { data: latest, error: readError } = await supabase.from('products').select('id').order('id', { ascending: false }).limit(1);
   if (readError) return sendSupabaseError(res, readError);
   const nextId = (latest && latest.length ? Number(latest[0].id) : 0) + 1;
   const product = {
     id: nextId, name: String(name).trim(), category: String(category).trim(),
-    price: Number(price), description: String(description), image: String(image),
+    price: Number(price), offer_price: offerPrice, description: String(description), image: String(image),
     variants: cleanVariants(req.body.variants)
   };
   const { data, error } = await supabase.from('products').insert(product).select().single();
@@ -163,10 +170,11 @@ app.post('/api/admin/products', requireAdmin, async (req, res) => {
 
 app.put('/api/admin/products/:id', requireAdmin, async (req, res) => {
   const { name, category, price, description = '', image = '' } = req.body || {};
-  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0)
-    return res.status(400).json({ error: 'Invalid product details.' });
+  const offerPrice = cleanOfferPrice(req.body?.offerPrice, price);
+  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || Number.isNaN(offerPrice))
+    return res.status(400).json({ error: 'Invalid product details or offer price. Offer must be lower than regular price.' });
   const update = {
-    name: String(name).trim(), category: String(category).trim(), price: Number(price),
+    name: String(name).trim(), category: String(category).trim(), price: Number(price), offer_price: offerPrice,
     description: String(description), image: String(image), variants: cleanVariants(req.body.variants)
   };
   const { data, error } = await supabase.from('products').update(update)
@@ -209,11 +217,13 @@ app.post('/api/orders', async (req, res) => {
         selected = variants.find(v => v.name === String(item.variantName || ''));
         if (!selected) return res.status(400).json({ error: `${p.name}: সঠিক Color নির্বাচন করুন।` });
       }
-      const unitPrice = Number(p.price);
+      const regularPrice = Number(p.price);
+      const unitPrice = p.offer_price !== null && p.offer_price !== undefined ? Number(p.offer_price) : regularPrice;
       total += unitPrice * qty;
       verifiedItems.push({
         productId: p.id, name: p.name, color: selected?.name || '',
-        image: selected?.image || p.image || '', price: unitPrice, quantity: qty
+        image: selected?.image || p.image || '', price: unitPrice,
+        regularPrice, quantity: qty
       });
     }
 
