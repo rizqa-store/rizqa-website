@@ -151,8 +151,9 @@ app.post('/api/admin/upload', requireAdmin, upload.single('image'), async (req, 
 
 app.post('/api/admin/products', requireAdmin, async (req, res) => {
   const { name, category, price, description = '', image = '' } = req.body || {};
+  const stockQuantity = Number(req.body?.stockQuantity);
   const offerPrice = cleanOfferPrice(req.body?.offerPrice, price);
-  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || Number.isNaN(offerPrice))
+  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || !Number.isInteger(stockQuantity) || stockQuantity < 0 || Number.isNaN(offerPrice))
     return res.status(400).json({ error: 'Product name, category, valid regular price and a lower offer price are required.' });
 
   const { data: latest, error: readError } = await supabase.from('products').select('id').order('id', { ascending: false }).limit(1);
@@ -161,7 +162,7 @@ app.post('/api/admin/products', requireAdmin, async (req, res) => {
   const product = {
     id: nextId, name: String(name).trim(), category: String(category).trim(),
     price: Number(price), offer_price: offerPrice, description: String(description), image: String(image),
-    variants: cleanVariants(req.body.variants)
+    variants: cleanVariants(req.body.variants), stock_quantity: stockQuantity
   };
   const { data, error } = await supabase.from('products').insert(product).select().single();
   if (error) return sendSupabaseError(res, error);
@@ -170,12 +171,13 @@ app.post('/api/admin/products', requireAdmin, async (req, res) => {
 
 app.put('/api/admin/products/:id', requireAdmin, async (req, res) => {
   const { name, category, price, description = '', image = '' } = req.body || {};
+  const stockQuantity = Number(req.body?.stockQuantity);
   const offerPrice = cleanOfferPrice(req.body?.offerPrice, price);
-  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || Number.isNaN(offerPrice))
+  if (!name || !category || !Number.isInteger(Number(price)) || Number(price) < 0 || !Number.isInteger(stockQuantity) || stockQuantity < 0 || Number.isNaN(offerPrice))
     return res.status(400).json({ error: 'Invalid product details or offer price. Offer must be lower than regular price.' });
   const update = {
     name: String(name).trim(), category: String(category).trim(), price: Number(price), offer_price: offerPrice,
-    description: String(description), image: String(image), variants: cleanVariants(req.body.variants)
+    description: String(description), image: String(image), variants: cleanVariants(req.body.variants), stock_quantity: stockQuantity
   };
   const { data, error } = await supabase.from('products').update(update)
     .eq('id', Number(req.params.id)).select().maybeSingle();
@@ -194,10 +196,10 @@ app.delete('/api/admin/products/:id', requireAdmin, async (req, res) => {
 app.post('/api/orders', async (req, res) => {
   try {
     const { customerName, phone, district, address, items } = req.body || {};
-    const districts = ['কুষ্টিয়া','নওগাঁ','ঢাকা','গাজীপুর','নারায়ণগঞ্জ','নরসিংদী','ফরিদপুর','গোপালগঞ্জ','মাদারীপুর','রাজবাড়ী','শরীয়তপুর','টাঙ্গাইল','কিশোরগঞ্জ','মানিকগঞ্জ','মুন্সীগঞ্জ','চট্টগ্রাম','কক্সবাজার','কুমিল্লা','ব্রাহ্মণবাড়িয়া','চাঁদপুর','ফেনী','লক্ষ্মীপুর','নোয়াখালী','রাঙ্গামাটি','খাগড়াছড়ি','বান্দরবান','রাজশাহী','বগুড়া','জয়পুরহাট','চাঁপাইনবাবগঞ্জ','নাটোর','পাবনা','সিরাজগঞ্জ','রংপুর','দিনাজপুর','গাইবান্ধা','কুড়িগ্রাম','লালমনিরহাট','নীলফামারী','পঞ্চগড়','ঠাকুরগাঁও','খুলনা','বাগেরহাট','চুয়াডাঙ্গা','যশোর','ঝিনাইদহ','মাগুরা','মেহেরপুর','নড়াইল','সাতক্ষীরা','বরিশাল','ভোলা','ঝালকাঠি','পটুয়াখালী','পিরোজপুর','সিলেট','হবিগঞ্জ','মৌলভীবাজার','সুনামগঞ্জ','ময়মনসিংহ','জামালপুর','নেত্রকোণা','শেরপুর'];
-    if (!customerName?.trim() || !phone?.trim() || !address?.trim() || !districts.includes(String(district || '').trim()))
-      return res.status(400).json({ error: 'নাম, ফোন নম্বর, সঠিক জেলা ও সম্পূর্ণ ঠিকানা দিন।' });
-    const deliveryCharge = ['কুষ্টিয়া','নওগাঁ'].includes(String(district).trim()) ? 100 : 130;
+    const deliveryLocations = ['inside_kushtia', 'inside_naogaon', 'outside']
+    if (!customerName?.trim() || !phone?.trim() || !address?.trim() || !deliveryLocations.includes(String(district || '').trim()))
+      return res.status(400).json({ error: 'নাম, ফোন নম্বর, Delivery Location ও সম্পূর্ণ ঠিকানা দিন।' });
+    const deliveryCharge = district === 'inside_kushtia' ? 90 : district === 'inside_naogaon' ? 100 : 130;
     if (!Array.isArray(items) || !items.length || items.length > 50)
       return res.status(400).json({ error: 'আপনার Cart-এ কোনো পণ্য নেই।' });
 
@@ -206,6 +208,7 @@ app.post('/api/orders', async (req, res) => {
     if (error) return sendSupabaseError(res, error);
     const byId = new Map((products || []).map(p => [Number(p.id), p]));
     const verifiedItems = [];
+    const reserved = [];
     let total = 0;
 
     for (const item of items) {
@@ -213,6 +216,8 @@ app.post('/api/orders', async (req, res) => {
       const qty = Number(item.quantity);
       if (!p || !Number.isInteger(qty) || qty < 1 || qty > 99)
         return res.status(400).json({ error: 'কার্টের একটি পণ্যের তথ্য সঠিক নয়।' });
+      const availableStock = Number(p.stock_quantity ?? 999);
+      if (availableStock < qty) return res.status(400).json({ error: `${p.name}: পর্যাপ্ত Stock নেই। Available: ${availableStock} পিস।` });
       const variants = Array.isArray(p.variants) ? p.variants : [];
       let selected = null;
       if (variants.length) {
@@ -229,9 +234,25 @@ app.post('/api/orders', async (req, res) => {
       });
     }
 
+    // Reserve stock with a conditional update so simultaneous orders cannot oversell.
+    const stockNeeds = new Map();
+    for (const item of verifiedItems) stockNeeds.set(item.productId, (stockNeeds.get(item.productId) || 0) + item.quantity);
+    for (const [productId, needed] of stockNeeds) {
+      const p = byId.get(Number(productId));
+      const currentStock = Number(p.stock_quantity ?? 999);
+      const { data: updated, error: stockError } = await supabase.from('products')
+        .update({ stock_quantity: currentStock - needed })
+        .eq('id', productId).eq('stock_quantity', currentStock).select('id').maybeSingle();
+      if (stockError || !updated) {
+        for (const r of reserved) await supabase.from('products').update({ stock_quantity: r.stock }).eq('id', r.id);
+        return res.status(409).json({ error: `${p.name}: Stock পরিবর্তিত হয়েছে বা পর্যাপ্ত নেই। আবার চেষ্টা করুন।` });
+      }
+      reserved.push({ id: productId, stock: currentStock });
+    }
     total += deliveryCharge;
     const orderNumber = `RZ${Date.now()}`;
-    const fullAddress = `জেলা: ${String(district).trim()}\n${String(address).trim()}`;
+    const locationLabel = district === 'inside_kushtia' ? 'Inside Kushtia' : district === 'inside_naogaon' ? 'Inside Naogaon' : 'Outside Kushtia & Naogaon (All Bangladesh)';
+    const fullAddress = `Delivery Location: ${locationLabel}\n${String(address).trim()}`;
     const { data, error: insertError } = await supabase.from('orders').insert({
       order_number: orderNumber,
       customer_name: String(customerName).trim(),
@@ -241,7 +262,10 @@ app.post('/api/orders', async (req, res) => {
       total_amount: total,
       status: 'Pending'
     }).select('id, order_number, status, total_amount, created_at').single();
-    if (insertError) return sendSupabaseError(res, insertError);
+    if (insertError) {
+      for (const r of reserved) await supabase.from('products').update({ stock_quantity: r.stock }).eq('id', r.id);
+      return sendSupabaseError(res, insertError);
+    }
     res.status(201).json({ ok: true, order: { ...data, delivery_charge: deliveryCharge } });
   } catch (error) {
     console.error(error);
