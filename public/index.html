@@ -184,6 +184,57 @@ body:after{opacity:.22;background-size:380px 420px;animation-duration:32s;animat
 @keyframes rizqaSnow{from{background-position:0 -300px}to{background-position:40px 600px}}
 @media(max-width:620px){.hero-slide,.hero-slide.active{min-height:390px}.hero-slide{padding:28px 24px}.hero-slide h1{font-size:clamp(40px,11vw,58px)}.trust-strip{gap:8px}.rizqa-product-card{border-radius:16px}.product-variant-rail{right:6px}}
 @media(prefers-reduced-motion:reduce){body:before,body:after{animation:none}}
+
+/* RIZQA WINTER LUXE refinement: richer contrast, restrained winter accents */
+:root{--ink:#172d40;--cream:#f5f4f0;--paper:#fff;--gold:#c5a36b;--gold-dark:#987747;--line:#e4e2dc;--muted:#687985}
+body{background:linear-gradient(180deg,#f5f7f8 0%,#f1f4f5 48%,#f7f6f2 100%);color:#172d40}
+header{background:#fbfaf6f5;border-bottom:1px solid #e5e1d8;box-shadow:0 5px 22px #142b3b0b}
+.logo{color:#17364d;text-shadow:none;letter-spacing:7px}
+.sub,.section-kicker,.cat{color:#9a7848}
+.hero-slide{background-image:linear-gradient(100deg,rgba(12,31,45,.88) 0%,rgba(20,43,59,.66) 48%,rgba(24,47,63,.20) 100%),var(--hero-image)}
+.hero-slide:after{border:1px solid #e7d4ad88;box-shadow:inset 0 0 24px #fff1}
+.hero-slide .eyebrow{color:#e5c994}
+.hero-cta{background:linear-gradient(120deg,#e4cfaa,#c6a36b);border:1px solid #e9d8b7;color:#1b2e3d;border-radius:3px;box-shadow:0 8px 22px #071d2b35;font-weight:700}
+.hero-cta:hover{background:#f0dfbf;color:#172d40}
+.hero-arrow{background:#f8f7f1e8!important;color:#203e54!important;border:1px solid #e5d6b7!important;backdrop-filter:blur(8px)}
+.trust-strip{gap:12px;background:transparent;border:0}
+.trust-item,.trust-item:nth-child(2),.trust-item:nth-child(3){background:linear-gradient(145deg,#fff,#f5f7f7)!important;border:1px solid #e2e5e4;border-radius:5px;box-shadow:0 8px 22px #1c35450b}
+.trust-item strong{color:#1d3a50}
+.category-tile{border-radius:5px;outline:1px solid #e5e1d8!important;box-shadow:0 9px 24px #152e3b16}
+.shop-tools input,.shop-tools select{border-radius:4px;border-color:#dedfdc;background:#fff;box-shadow:0 4px 14px #20394b08}
+.chip,.chip:nth-child(3n+2),.chip:nth-child(3n){border-radius:3px;background:#fff;color:#39566a;border-color:#dfe3e3}
+.chip.active{background:#1b3b52;color:#fff;border:1px solid #1b3b52}
+.rizqa-product-card,.card{border:1px solid #e3e5e3;border-radius:5px;background:#fff!important;box-shadow:0 8px 24px #1c35450c;backdrop-filter:none}
+.rizqa-product-card:nth-child(4n+1),.rizqa-product-card:nth-child(4n+2),.rizqa-product-card:nth-child(4n+3),.rizqa-product-card:nth-child(4n){background:#fff!important}
+.rizqa-product-card:hover{box-shadow:0 15px 32px #1c35451a;transform:translateY(-4px)}
+.product-visual{background:#f1f3f2}
+.product-tap-hint{background:#fffF;color:#37576b;border:1px solid #e2e5e2;box-shadow:0 3px 12px #172d4010}
+.product-variant-rail{background:#ffffffed;border:1px solid #e3e5e3;box-shadow:0 5px 16px #172d4018}
+.product-variant-thumb.active{border-color:#b9965d;box-shadow:0 0 0 2px #c5a36b35}
+.product-caption{color:#6c7b84}.price{color:#203f55}
+.rizqa-product-card .body button{background:linear-gradient(110deg,#1b3b52,#345c73)!important;color:#fff;border:1px solid #1b3b52;box-shadow:0 5px 13px #1b3b5220}
+.rizqa-product-card .body button:hover{background:#102c40!important}
+.rizqa-product-card .body button.alt{background:#f5f4ef!important;color:#29485d!important;border:1px solid #ded8ca;box-shadow:none}
+.discount-badge{background:linear-gradient(120deg,#b28c53,#d1b47f)}
+.panel{background:#fff;border:1px solid #e2e4e1;box-shadow:0 24px 70px #102c4033}
+.modal{background:#102638a8;backdrop-filter:blur(8px)}
+.detail-img{background:#f3f4f1;border:1px solid #e3e5e1}
+.swatch{border-radius:4px;background:#fff;border-color:#e1e3df;color:#365469}
+.swatch.active{border:2px solid #b9965d;background:#faf7f0}
+.delivery-summary{background:linear-gradient(110deg,#f5f7f7,#f8f5ee);border-color:#e2e4df}
+.product-share{background:#f4f5f2!important;color:#35556a!important;border-color:#dfe3df!important}
+footer{background:linear-gradient(110deg,#142f43,#244b63 65%,#344f62);border-radius:0}
+footer .sub{color:#dfc99f}
+#adminModal .panel{background:#fff;border-color:#e0e4e2}
+#adminModal .admin-welcome{background:linear-gradient(110deg,#17364d,#315c74 65%,#8c7959)}
+#adminModal .admin-kpi{background:linear-gradient(140deg,#f2f6f7,#fff)!important;box-shadow:0 8px 20px #345d7610}
+#adminModal .admin-section{border-color:#e0e5e3;background:#fff}
+#adminModal button:not(.close){background:linear-gradient(110deg,#1b3b52,#426d83)}
+#adminModal button.alt{background:#f3f5f3;color:#35566b;border:1px solid #dce3e1}
+/* Snow stays subtle and behind all content */
+body:before{opacity:.13;background-size:320px 360px;animation-duration:30s}
+body:after{opacity:.07;background-size:460px 500px;animation-duration:42s}
+@media(max-width:620px){.hero-slide,.hero-slide.active{min-height:390px}.hero-slide{padding:28px 24px}.hero-slide h1{font-size:clamp(40px,11vw,58px)}.trust-strip{gap:8px}.rizqa-product-card{border-radius:5px}.product-variant-rail{right:6px}}
 </style></head>
 <body>
 <header><nav><div><div class="logo">RIZQA</div><span class="sub">CURATED ESSENTIALS</span></div><div class="nav-actions"><button class="alt" onclick="openOrderNow()">Order Now</button><button class="alt" onclick="openTrackOrder()">অর্ডার ট্র্যাক</button><button class="alt" onclick="openCart()">Cart <span id="count">0</span></button><button class="admin-btn" onclick="openAdmin()">Admin</button></div></nav></header>
