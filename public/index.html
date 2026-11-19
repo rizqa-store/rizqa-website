@@ -194,6 +194,44 @@ body{overflow-x:hidden}
 @keyframes treeSway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 @media(max-width:620px){.winter-float.mitten{top:16%;left:1%}.winter-float.sock{top:38%;right:1%}.winter-float.hat{top:66%;left:1%}.winter-float.sock2{top:78%;right:2%}.winter-palm{left:-12px;font-size:65px}.winter-tree{right:-12px;font-size:78px}.rizqa-winter-decor{opacity:.82}}
 @media(prefers-reduced-motion:reduce){.winter-float,.winter-tree{animation:none}}
+
+
+/* RIZQA PRODUCT DETAIL EXPERIENCE — isolated UI layer; storefront/admin logic retained */
+#detailModal{align-items:flex-start;overflow-y:auto;padding:clamp(8px,2vw,24px)}
+#detailModal .panel{width:min(1220px,100%);max-height:none;overflow:visible;padding:clamp(15px,2.2vw,30px);border-radius:24px;background:#fff;box-shadow:0 24px 90px #38233b30}
+#detailModal .close{position:sticky;top:4px;z-index:5;float:right;margin:-5px -4px 0 8px;width:36px;height:36px;border-radius:50%;background:#fff0f6;color:#8c315f;font-size:26px;line-height:1}
+#detailContent{clear:both}
+.detail-breadcrumb{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 18px;padding:10px 13px;border-radius:10px;background:#fff4f8;color:#766d80;font-size:12px}
+.detail-breadcrumb b{color:#3d2c43}
+.detail-premium-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr);gap:clamp(20px,3vw,42px);align-items:start}
+.detail-gallery{min-width:0}
+.detail-main-visual{position:relative;overflow:hidden;border-radius:19px;background:linear-gradient(140deg,#fff0f5,#f2eaff 55%,#e8f8f4);border:1px solid #f1dce7;min-height:300px}
+.detail-main-visual .detail-img{display:block;width:100%;height:clamp(350px,48vw,590px);max-height:none;object-fit:contain;background:transparent;border-radius:0;padding:8px}
+.detail-image-hint,.detail-gallery-count{position:absolute;bottom:13px;padding:7px 11px;border-radius:99px;background:#fffdf0e8;color:#74516f;font-size:10px;box-shadow:0 3px 12px #38233b12}
+.detail-image-hint{left:13px}.detail-gallery-count{right:13px}
+.detail-gallery-thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:13px 0 8px}
+.detail-thumb{padding:4px;min-width:0;aspect-ratio:1;border:1px solid #eadce9;border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 3px 12px #49304e0b}
+.detail-thumb img{width:100%;height:100%;display:block;object-fit:cover;border-radius:8px}
+.detail-thumb.active{border:2px solid #b4447e;padding:3px;box-shadow:0 0 0 3px #f8d8e8}
+.detail-gallery-note{display:flex;gap:8px;align-items:center;color:#8a7487;font-size:11px;padding:7px 2px}.detail-gallery-note span{color:#d08b39;font-size:18px}
+.detail-buy-panel{padding:5px 0;min-width:0}
+.detail-category-pill{display:inline-flex;padding:6px 12px;border-radius:99px;background:#fff0f6;color:#a33d70;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.detail-product-title{font:700 clamp(27px,3.2vw,42px)/1.16 Arial,"Noto Sans Bengali",sans-serif;color:#241d2c;margin:13px 0 8px;letter-spacing:-.7px}
+.detail-rating-summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#625b67;margin:8px 0 16px}.detail-stars{color:#e3a51d;font-size:20px;letter-spacing:1px}.detail-rating-summary b{color:#292131}
+.detail-price-block{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:5px 0 13px}.detail-price-block .price{font-size:clamp(26px,3vw,36px);margin:0;color:#a42e69}.detail-price-block .old-price{font-size:17px}.detail-save-pill{padding:7px 13px;border-radius:99px;background:#ffedf4;color:#a52d68;font-weight:800;font-size:12px}
+.detail-short-description{color:#4b414d;font-size:14px;line-height:1.85;margin:2px 0 16px}.detail-short-description .product-details{display:none}.detail-short-description .product-description{margin:0}
+.detail-benefits{display:grid;grid-template-columns:1fr 1fr;gap:1px;padding:12px;border:1px solid #f0dce7;border-radius:15px;background:linear-gradient(120deg,#fff5f8,#f7f1ff 55%,#effaf7);margin:15px 0 18px}
+.detail-benefits>div{display:flex;align-items:center;gap:10px;padding:9px 7px;min-width:0}.benefit-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:11px;background:#fff;color:#9f3c70;font-size:21px;box-shadow:0 3px 10px #68415e12}.detail-benefits b{display:block;font-size:12px;color:#33273a}.detail-benefits small{display:block;font-size:10px;color:#837687;margin-top:3px}
+.detail-option-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 8px;font-size:13px}.detail-option-head span{font-size:11px;color:#8a7d8d}.detail-swatches{display:flex;gap:9px;flex-wrap:wrap;margin:8px 0 16px}.detail-swatch{display:flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid #ead9e8;border-radius:11px;background:#fff;color:#49384c;font-size:12px}.detail-swatch img{width:32px;height:32px;object-fit:cover;border-radius:7px}.detail-swatch.active{border:2px solid #b4447e;background:#fff2f7;padding:5px 9px;box-shadow:0 0 0 2px #f8dce9}
+.detail-quantity-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:17px 0 8px;font-size:13px}.detail-qty-control{display:flex;align-items:center;border:1px solid #e8dce8;border-radius:99px;overflow:hidden;background:#fff}.detail-qty-control button{border:0;background:#fff;color:#5c3a58;padding:8px 14px;font-size:20px;line-height:1}.detail-qty-control button:hover{background:#fff0f6;color:#a22f69}.detail-qty-control input{width:46px;text-align:center;border:0;outline:0;padding:8px 2px;color:#302337;background:transparent;-moz-appearance:textfield}.detail-qty-control input::-webkit-outer-spin-button,.detail-qty-control input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}.detail-stock-note{margin-left:auto;color:#39836c;font-size:11px}
+.detail-line-total{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #f0e5ed;color:#65596a;font-size:13px}.detail-line-total b{color:#a42e69;font-size:17px}
+.detail-primary-actions{display:grid;gap:9px;margin:10px 0}.detail-primary-actions button{width:100%;min-height:48px;border:0;border-radius:99px;font-weight:800;font-size:14px}.detail-add-cart{background:linear-gradient(100deg,#df4386,#9a55bd);color:#fff;box-shadow:0 7px 18px #bd4b8a30}.detail-add-cart:hover{background:linear-gradient(100deg,#c93679,#7844a9)}.detail-whatsapp{background:#fff;color:#28213d;border:1px solid #a84c7c!important;box-shadow:none}.detail-whatsapp span{display:inline-grid;place-items:center;width:23px;height:23px;margin-right:6px;border-radius:50%;background:#20b65b;color:#fff;font-size:11px}.detail-order-site{background:#fff0f6;color:#9a3d70;border:1px solid #f1cadd!important}
+.detail-trust-pills{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.detail-trust-pills span{flex:1;min-width:90px;text-align:center;padding:10px 7px;border-radius:99px;background:#fff0f5;color:#74415f;font-size:10px;font-weight:700}.detail-trust-pills span:nth-child(2){background:#f0eaff;color:#6f55a0}.detail-trust-pills span:nth-child(3){background:#e9f8f3;color:#347d6e}
+.detail-share-actions{display:flex;gap:8px;flex-wrap:wrap}.detail-share-actions button{flex:1;background:#fff;border:1px solid #eadce9;color:#73526f;padding:9px 12px;font-size:11px;border-radius:10px}
+.detail-information{margin-top:28px;border:1px solid #eddfeb;border-radius:16px;overflow:hidden;background:#fff}.detail-tabs{display:flex;overflow-x:auto;background:#fff5f8;border-bottom:1px solid #eddfeb}.detail-tab{flex:1;min-width:max-content;border:0;border-radius:0;background:transparent;color:#534657;padding:15px 17px;font-size:13px;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent}.detail-tab:hover{background:#ffedf4;color:#9c3c70}.detail-tab.active{background:#fff;color:#a12f6c;border-bottom-color:#b33d78}.detail-tab-panel{padding:clamp(16px,2.5vw,27px);color:#4b414d;font-size:14px;line-height:1.85}.detail-tab-panel[hidden]{display:none}.detail-tab-panel>h3{font-size:20px;color:#442d48;margin:0 0 13px}.detail-tab-panel ul{padding-left:22px}.detail-description-content .product-description{white-space:pre-line}.detail-description-content .product-details{background:#fff8fb;border-color:#f0dce7;border-radius:13px}.detail-description-content .product-details h3{font-family:Arial,"Noto Sans Bengali",sans-serif;font-size:17px;color:#8f3769}.detail-review-card{padding:14px 0}.detail-review-form{max-width:650px;background:#fff8fb;border:1px solid #f0dce7;border-radius:14px;padding:16px;margin-top:20px}.detail-review-form h3{margin-top:0}.detail-review-form button{border:0;border-radius:10px;background:linear-gradient(100deg,#df4386,#9a55bd);color:#fff}
+@media(max-width:800px){.detail-premium-layout{grid-template-columns:1fr}.detail-main-visual .detail-img{height:clamp(300px,75vw,520px)}.detail-buy-panel{padding:4px 2px}.detail-product-title{font-size:30px}.detail-information{margin-top:20px}}
+@media(max-width:520px){#detailModal{padding:0;align-items:flex-start}#detailModal .panel{border-radius:0;min-height:100vh;padding:14px 13px 24px}.detail-breadcrumb{font-size:10px;margin-bottom:12px}.detail-main-visual{min-height:260px;border-radius:14px}.detail-main-visual .detail-img{height:clamp(260px,82vw,390px)}.detail-gallery-thumbs{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.detail-thumb{border-radius:9px}.detail-product-title{font-size:27px}.detail-benefits{padding:7px;gap:0}.detail-benefits>div{padding:8px 4px;gap:7px}.benefit-icon{width:29px;height:29px;flex-basis:29px;font-size:18px}.detail-benefits b{font-size:10px}.detail-benefits small{font-size:9px}.detail-stock-note{width:100%;margin-left:0}.detail-tab{padding:13px 12px;font-size:12px}.detail-tab-panel{padding:15px 13px}.detail-trust-pills span{min-width:78px;font-size:9px}}
+
 </style></head>
 <body>
 <div class="rizqa-winter-decor" aria-hidden="true">
@@ -253,7 +291,7 @@ body{overflow-x:hidden}
 
 <script>
 const WA='8801602918071';
-let products=[],cart=[],filter='All',activeGroup=null,admin=false,detailProduct=null,selectedVariant=null;
+let products=[],cart=[],filter='All',activeGroup=null,admin=false,detailProduct=null,selectedVariant=null,detailQuantity=1,detailGalleryIndex=0,detailActiveTab='description',detailReviewRows=[];
 const $=id=>document.getElementById(id);
 async function api(url,opts={}){let r=await fetch(url,{...opts,headers:{...(opts.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(opts.headers||{})}});let data=await r.json().catch(()=>({}));if(!r.ok)throw Error(data.error||'Something went wrong');return data}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -281,17 +319,18 @@ function getVariant(p,name){return (p.variants||[]).find(v=>v.name===name)}
 function priceInfo(p){const regular=Number(p.price)||0,offer=p.offer_price===null||p.offer_price===undefined||p.offer_price===''?null:Number(p.offer_price);const active=Number.isFinite(offer)&&offer>0&&offer<regular;return{regular,current:active?offer:regular,discount:active?Math.round((regular-offer)*100/regular):0,active}}
 function priceMarkup(p){const x=priceInfo(p);return x.active?`<div class="price price-sale"><span class="old-price">৳${x.regular.toLocaleString('en-BD')}</span><strong>৳${x.current.toLocaleString('en-BD')}</strong><span class="discount-badge">${x.discount}% OFF</span></div>`:`<div class="price">৳${x.regular.toLocaleString('en-BD')}</div>`}
 function cartPriceMarkup(item){return item.regularPrice>item.price?`<span class="old-price">৳${item.regularPrice.toLocaleString('en-BD')}</span> <strong class="sale-text">৳${item.price.toLocaleString('en-BD')}</strong>`:`৳${item.price.toLocaleString('en-BD')}`}
-function addCart(id,variantName=''){
+function addCart(id,variantName='',quantity=1){
  let p=products.find(x=>Number(x.id)===Number(id));if(!p)return;
  if((p.variants||[]).length&&!variantName){openDetails(id);return}
+ const qty=Math.max(1,Math.min(999,Math.floor(Number(quantity)||1)));
  let key=`${p.id}::${variantName}`;
  let old=cart.find(i=>i.key===key);
- if(old)old.quantity++;else{let v=getVariant(p,variantName);const pricing=priceInfo(p);cart.push({key,productId:p.id,name:p.name,price:pricing.current,regularPrice:pricing.regular,variantName,image:v?.image||p.image||'',quantity:1})}
- updateCount();alert('Cart-এ যোগ হয়েছে।');
+ if(old)old.quantity=Math.min(999,old.quantity+qty);else{let v=getVariant(p,variantName);const pricing=priceInfo(p);cart.push({key,productId:p.id,name:p.name,price:pricing.current,regularPrice:pricing.regular,variantName,image:v?.image||p.image||'',quantity:qty})}
+ updateCount();alert(`${qty} টি পণ্য Cart-এ যোগ হয়েছে।`);
 }
 function openDetails(id){
  detailProduct=products.find(p=>Number(p.id)===Number(id));if(!detailProduct)return;
- selectedVariant=detailProduct.variants?.[0]?.name||'';
+ selectedVariant=detailProduct.variants?.[0]?.name||'';detailQuantity=1;detailGalleryIndex=0;detailActiveTab='description';detailReviewRows=[];
  renderDetails();show('detailModal');
 }
 function productShareUrl(id){const url=new URL(location.pathname,location.origin);url.searchParams.set('product',String(id));return url.toString()}
@@ -324,19 +363,81 @@ function renderProductDescription(raw){
  return `${intro?`<div class="product-description">${esc(intro)}</div>`:''}<section class="product-details"><h3>Product Details</h3><dl class="product-detail-list">${rows}</dl></section>`;
 }
 
+function detailGalleryItems(p){
+ const items=[];const add=(src,label,variantName='')=>{if(src&&!items.some(x=>x.src===src))items.push({src,label,variantName})};
+ add(p.image||p.variants?.[0]?.image||'',p.name,'');
+ (p.variants||[]).forEach(v=>add(v.image,`${p.name} · ${v.name}`,v.name));
+ return items;
+}
+function selectDetailImage(index){
+ const items=detailGalleryItems(detailProduct);if(!items.length)return;
+ detailGalleryIndex=Math.max(0,Math.min(items.length-1,Number(index)||0));
+ const item=items[detailGalleryIndex];if(item.variantName)selectedVariant=item.variantName;
+ renderDetails();
+}
+function chooseVariant(name){
+ selectedVariant=name;const items=detailGalleryItems(detailProduct),idx=items.findIndex(x=>x.variantName===name);
+ if(idx>=0)detailGalleryIndex=idx;renderDetails();
+}
+function changeDetailQty(delta){detailQuantity=Math.max(1,Math.min(999,(Number(detailQuantity)||1)+delta));const input=$('detailQty');if(input)input.value=detailQuantity;const total=$('detailLineTotal');if(total){const price=priceInfo(detailProduct).current;total.textContent='৳'+(price*detailQuantity).toLocaleString('en-BD')}}
+function setDetailQty(value){const n=Math.floor(Number(value));detailQuantity=Math.max(1,Math.min(999,Number.isFinite(n)&&n>0?n:1));const input=$('detailQty');if(input)input.value=detailQuantity;const total=$('detailLineTotal');if(total)total.textContent='৳'+(priceInfo(detailProduct).current*detailQuantity).toLocaleString('en-BD')}
+function setDetailTab(tab){detailActiveTab=tab;document.querySelectorAll('#detailContent .detail-tab').forEach(b=>{const active=b.dataset.tab===tab;b.classList.toggle('active',active);b.setAttribute('aria-selected',active?'true':'false')});document.querySelectorAll('#detailContent .detail-tab-panel').forEach(p=>p.hidden=p.dataset.panel!==tab)}
+function renderDetailReviewSummary(rows){
+ const count=rows.length,avg=count?rows.reduce((sum,r)=>sum+Number(r.rating||0),0)/count:0;
+ const summary=$('detailRatingSummary');if(summary)summary.innerHTML=`<span class="detail-stars">${'★'.repeat(Math.round(avg))}${'☆'.repeat(5-Math.round(avg))}</span><b>${count?avg.toFixed(1):'0.0'}</b><span>(${count.toLocaleString('en-BD')} Reviews)</span>`;
+ const tab=$('detailReviewsTab');if(tab)tab.textContent=`Reviews (${count})`;
+}
 function renderDetails(){
- let p=detailProduct,v=getVariant(p,selectedVariant),img=v?.image||p.image||'';
- let variants=p.variants||[];
- $('detailContent').innerHTML=`<div class="detail-layout"><div><img class="detail-img" src="${esc(img)}" alt="${esc(p.name)}" onclick="openImageViewer(this.src,this.alt)" onerror="this.style.opacity=.35"></div><div><div class="cat">${esc(p.category)}</div><h2>${esc(p.name)}</h2>${priceMarkup(p)}${renderProductDescription(p.description)}${variants.length?`<b>Available Colors</b><div class="swatches">${variants.map(x=>`<button class="swatch ${selectedVariant===x.name?'active':''}" onclick="chooseVariant('${esc(x.name)}')">${x.image?`<img src="${esc(x.image)}">`:''}${esc(x.name)}</button>`).join('')}</div>`:'<p class="muted">Color option নেই।</p>'}<div class="row"><button onclick="addDetailToCart()">Add Selected to Cart</button><button class="alt" onclick="orderDetailNow()">Order Now</button></div></div></div><div class="share-row detail-share"><button class="product-share" onclick="shareProduct(${p.id})">↗ Share this Product</button><button class="alt" onclick="window.open('https://wa.me/?text='+encodeURIComponent('${esc(p.name)} — RIZQA: '+productShareUrl(${p.id})),'_blank')">WhatsApp</button><button class="alt" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(productShareUrl(${p.id})),'_blank')">Facebook</button></div><section class="review-form"><h3>গ্রাহকদের অভিজ্ঞতা</h3><div id="reviewsList"><span class="muted">রিভিউ লোড হচ্ছে...</span></div><h3>আপনার মূল্যবান মতামত জানান</h3><div class="field"><label>আপনার নাম</label><input id="reviewName" placeholder="আপনার নাম লিখুন"></div><div class="field"><label>পণ্যটি কেমন লেগেছে?</label><select id="reviewRating"><option value="5">★★★★★ — অসাধারণ</option><option value="4">★★★★ — খুব ভালো</option><option value="3">★★★ — ভালো</option><option value="2">★★ — মোটামুটি</option><option value="1">★ — সন্তোষজনক নয়</option></select></div><div class="field"><label>আপনার অভিজ্ঞতা লিখুন</label><textarea id="reviewText" rows="3" placeholder="পণ্যটি সম্পর্কে আপনার অভিজ্ঞতা ও মতামত লিখুন..."></textarea></div><button onclick="submitReview()">মতামত জমা দিন</button><p class="muted">আপনার মতামত জমা দেওয়ার জন্য ধন্যবাদ। যাচাই ও অনুমোদনের পর এটি সবার জন্য প্রকাশ করা হবে।</p></section>`;loadProductReviews(p.id);
+ const p=detailProduct;if(!p)return;
+ const items=detailGalleryItems(p);if(detailGalleryIndex>=items.length)detailGalleryIndex=0;
+ const current=items[detailGalleryIndex]||{src:p.image||'',label:p.name};
+ const variants=p.variants||[],pricing=priceInfo(p),qty=Math.max(1,Number(detailQuantity)||1),stock=Number(p.stock_quantity??999);
+ const thumbs=items.map((item,i)=>`<button type="button" class="detail-thumb ${i===detailGalleryIndex?'active':''}" aria-label="ছবি ${i+1}: ${esc(item.label)}" aria-pressed="${i===detailGalleryIndex?'true':'false'}" onclick="selectDetailImage(${i})"><img src="${esc(item.src)}" alt="${esc(item.label)}" loading="lazy"></button>`).join('');
+ const variantMarkup=variants.length?`<div class="detail-option-head"><b>Available Colors</b><span>${variants.length} options</span></div><div class="detail-swatches">${variants.map(x=>`<button type="button" class="detail-swatch ${selectedVariant===x.name?'active':''}" aria-pressed="${selectedVariant===x.name?'true':'false'}" onclick="chooseVariant('${esc(x.name)}')">${x.image?`<img src="${esc(x.image)}" alt="">`:''}<span>${esc(x.name)}</span></button>`).join('')}</div>`:`<p class="muted">এই পণ্যে আলাদা Color option নেই।</p>`;
+ const detailHtml=`
+ <div class="detail-breadcrumb"><span>RIZQA</span><span>›</span><span>${esc(p.category||'Collection')}</span><span>›</span><b>${esc(p.name)}</b></div>
+ <div class="detail-premium-layout">
+  <section class="detail-gallery">
+   <div class="detail-main-visual"><img class="detail-img" src="${esc(current.src)}" alt="${esc(current.label)}" onclick="openImageViewer(this.src,this.alt)" onerror="this.style.opacity=.35"><span class="detail-image-hint">ছবি বড় করে দেখতে ট্যাপ করুন</span><span class="detail-gallery-count">${items.length?detailGalleryIndex+1:0} / ${items.length}</span></div>
+   ${items.length>1?`<div class="detail-gallery-thumbs" aria-label="পণ্যের অন্যান্য ছবি">${thumbs}</div>`:''}
+   <div class="detail-gallery-note"><span>✦</span> আসল পণ্যের ছবি ও ভ্যারিয়েন্ট দেখুন</div>
+  </section>
+  <section class="detail-buy-panel">
+   <div class="detail-category-pill">${esc(p.category||'RIZQA COLLECTION')}</div>
+   <h2 class="detail-product-title">${esc(p.name)}</h2>
+   <div id="detailRatingSummary" class="detail-rating-summary"><span class="detail-stars">☆☆☆☆☆</span><b>—</b><span>Review লোড হচ্ছে</span></div>
+   <div class="detail-price-block">${priceMarkup(p)}${pricing.active?`<span class="detail-save-pill">Save ${pricing.discount}%</span>`:''}</div>
+   <div class="detail-short-description">${renderProductDescription(p.description)||'<p>RIZQA-র বাছাই করা এই পণ্যটি সম্পর্কে বিস্তারিত জানতে নিচের তথ্যগুলো দেখুন।</p>'}</div>
+   <div class="detail-benefits"><div><span class="benefit-icon">◇</span><span><b>Carefully Selected</b><small>বাছাই করা পণ্যের মান</small></span></div><div><span class="benefit-icon">♧</span><span><b>All Bangladesh Delivery</b><small>সারা বাংলাদেশে ডেলিভারি</small></span></div><div><span class="benefit-icon">✓</span><span><b>Cash on Delivery</b><small>ক্যাশ অন ডেলিভারি সুবিধা</small></span></div><div><span class="benefit-icon">♡</span><span><b>Customer Support</b><small>প্রয়োজনে RIZQA-র সাথে যোগাযোগ</small></span></div></div>
+   ${variantMarkup}
+   <div class="detail-quantity-row"><b>Quantity</b><div class="detail-qty-control"><button type="button" aria-label="একটি কমান" onclick="changeDetailQty(-1)">−</button><input id="detailQty" type="number" min="1" max="999" value="${qty}" aria-label="পণ্যের পরিমাণ" onchange="setDetailQty(this.value)"><button type="button" aria-label="একটি বাড়ান" onclick="changeDetailQty(1)">+</button></div><span class="detail-stock-note">${stock>0?'Available':'Stock status জানতে যোগাযোগ করুন'}</span></div>
+   <div class="detail-line-total"><span>পণ্যের মোট দাম</span><b id="detailLineTotal">৳${(pricing.current*qty).toLocaleString('en-BD')}</b></div>
+   <div class="detail-primary-actions"><button type="button" class="detail-add-cart" onclick="addDetailToCart()">🛒 Add to Cart</button><button type="button" class="detail-whatsapp" onclick="orderDetailWhatsApp()"><span>●</span> Order via WhatsApp</button><button type="button" class="detail-order-site" onclick="orderDetailNow()">Website-এ অর্ডার করুন</button></div>
+   <div class="detail-trust-pills"><span>♢ Trusted Store</span><span>🚚 Fast Delivery</span><span>♡ Support</span></div>
+   <div class="detail-share-actions"><button type="button" onclick="shareProduct(${p.id})">↗ Share Product</button><button type="button" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(productShareUrl(${p.id})),'_blank')">Facebook</button></div>
+  </section>
+ </div>
+ <section class="detail-information">
+  <div class="detail-tabs" role="tablist" aria-label="পণ্যের তথ্য"><button type="button" class="detail-tab ${detailActiveTab==='description'?'active':''}" data-tab="description" role="tab" aria-selected="${detailActiveTab==='description'}" onclick="setDetailTab('description')">Description</button><button type="button" class="detail-tab ${detailActiveTab==='shipping'?'active':''}" data-tab="shipping" role="tab" aria-selected="${detailActiveTab==='shipping'}" onclick="setDetailTab('shipping')">Shipping Info</button><button type="button" class="detail-tab ${detailActiveTab==='returns'?'active':''}" data-tab="returns" role="tab" aria-selected="${detailActiveTab==='returns'}" onclick="setDetailTab('returns')">Return Policy</button><button type="button" class="detail-tab ${detailActiveTab==='reviews'?'active':''}" data-tab="reviews" id="detailReviewsTab" role="tab" aria-selected="${detailActiveTab==='reviews'}" onclick="setDetailTab('reviews')">Reviews (0)</button></div>
+  <div class="detail-tab-panel" data-panel="description" ${detailActiveTab!=='description'?'hidden':''}><h3>Product Description</h3><div class="detail-description-content">${renderProductDescription(p.description)||'<p class="muted">এই পণ্যের বিস্তারিত তথ্য শিগগিরই যোগ করা হবে।</p>'}</div></div>
+  <div class="detail-tab-panel" data-panel="shipping" ${detailActiveTab!=='shipping'?'hidden':''}><h3>Shipping Information</h3><p>আপনার Delivery Location অনুযায়ী Checkout-এ ডেলিভারি চার্জ যোগ হবে।</p><ul><li>Inside Kushtia: ৳90</li><li>Inside Naogaon: ৳100</li><li>অন্যান্য জেলা: ৳130</li></ul><p class="muted">অর্ডার নিশ্চিত করার আগে Cart-এ আপনার Delivery Location নির্বাচন করুন।</p></div>
+  <div class="detail-tab-panel" data-panel="returns" ${detailActiveTab!=='returns'?'hidden':''}><h3>Return &amp; Exchange Information</h3><p>Return বা Exchange-এর শর্ত পণ্যভেদে ভিন্ন হতে পারে। অর্ডার করার আগে বিস্তারিত জানতে RIZQA-র সাথে যোগাযোগ করুন।</p><p class="muted">পণ্য হাতে পাওয়ার পর কোনো সমস্যা থাকলে পণ্যের ছবি ও Order Number-সহ আমাদের জানান।</p></div>
+  <div class="detail-tab-panel" data-panel="reviews" ${detailActiveTab!=='reviews'?'hidden':''}><h3>Customer Reviews</h3><div id="reviewsList"><span class="muted">রিভিউ লোড হচ্ছে...</span></div><div class="review-form detail-review-form"><h3>আপনার মূল্যবান মতামত জানান</h3><div class="field"><label>আপনার নাম</label><input id="reviewName" placeholder="আপনার নাম লিখুন"></div><div class="field"><label>পণ্যটি কেমন লেগেছে?</label><select id="reviewRating"><option value="5">★★★★★ — অসাধারণ</option><option value="4">★★★★ — খুব ভালো</option><option value="3">★★★ — ভালো</option><option value="2">★★ — মোটামুটি</option><option value="1">★ — সন্তোষজনক নয়</option></select></div><div class="field"><label>আপনার অভিজ্ঞতা লিখুন</label><textarea id="reviewText" rows="3" placeholder="পণ্যটি সম্পর্কে আপনার অভিজ্ঞতা ও মতামত লিখুন..."></textarea></div><button type="button" onclick="submitReview()">মতামত জমা দিন</button><p class="muted">যাচাই ও অনুমোদনের পর আপনার মতামত সবার জন্য প্রকাশ করা হবে।</p></div></div>
+ </section>`;
+ $('detailContent').innerHTML=detailHtml;
+ renderDetailReviewSummary(detailReviewRows);
+ loadProductReviews(p.id);
 }
-async function loadProductReviews(id){try{let rows=await api(`/api/reviews?productId=${id}`);let el=$('reviewsList');if(!el)return;el.innerHTML=rows.length?rows.map(r=>`<div class="review"><div class="rating">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</div><b>${esc(r.customer_name)}</b><p>${esc(r.comment)}</p></div>`).join(''):'<p class="muted">এখনো এই পণ্যটি নিয়ে কোনো মতামত পাওয়া যায়নি। আপনার অভিজ্ঞতা দিয়ে প্রথম মতামতটি শেয়ার করুন।</p>'}catch(e){let el=$('reviewsList');if(el)el.innerHTML='<p class="muted">Review এখন লোড করা যাচ্ছে না।</p>'}}
+function addDetailToCart(){if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');addCart(detailProduct.id,selectedVariant,detailQuantity);closeModal('detailModal')}
+function orderDetailNow(){if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');addCart(detailProduct.id,selectedVariant,detailQuantity);closeModal('detailModal');openCart()}
+function orderDetailWhatsApp(){
+ if(!detailProduct)return;if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');
+ const p=detailProduct,pricing=priceInfo(p),variant=selectedVariant?`\nColor: ${selectedVariant}`:'',qty=Math.max(1,Number(detailQuantity)||1);
+ const message=`RIZQA PRODUCT ORDER\nProduct: ${p.name}${variant}\nQuantity: ${qty}\nUnit Price: ৳${pricing.current}\nProduct Total: ৳${pricing.current*qty}\n\nআমি এই পণ্যটি অর্ডার করতে চাই। আমার Delivery Address ও তথ্য জানাতে WhatsApp-এ যোগাযোগ করছি।\nProduct Link: ${productShareUrl(p.id)}`;
+ window.open(`https://wa.me/${WA}?text=${encodeURIComponent(message)}`,'_blank');
+}
+async function loadProductReviews(id){try{let rows=await api(`/api/reviews?productId=${id}`);if(!detailProduct||Number(detailProduct.id)!==Number(id))return;detailReviewRows=Array.isArray(rows)?rows:[];renderDetailReviewSummary(detailReviewRows);let el=$('reviewsList');if(!el)return;el.innerHTML=detailReviewRows.length?detailReviewRows.map(r=>`<div class="review detail-review-card"><div class="rating">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</div><b>${esc(r.customer_name)}</b><p>${esc(r.comment)}</p></div>`).join(''):'<p class="muted">এখনো এই পণ্যটি নিয়ে কোনো মতামত পাওয়া যায়নি। আপনার অভিজ্ঞতা দিয়ে প্রথম মতামতটি শেয়ার করুন।</p>'}catch(e){if(!detailProduct||Number(detailProduct.id)!==Number(id))return;let el=$('reviewsList');if(el)el.innerHTML='<p class="muted">Review এখন লোড করা যাচ্ছে না।</p>';renderDetailReviewSummary([])}}
 async function submitReview(){let name=$('reviewName').value.trim(),comment=$('reviewText').value.trim(),rating=Number($('reviewRating').value);if(!name||!comment)return alert('আপনার নাম ও মতামত লিখুন।');try{await api('/api/reviews',{method:'POST',body:JSON.stringify({productId:detailProduct.id,customerName:name,rating,comment})});$('reviewName').value='';$('reviewText').value='';alert('ধন্যবাদ! আপনার মতামত জমা হয়েছে। যাচাই ও অনুমোদনের পর এটি প্রকাশ করা হবে।')}catch(e){alert(e.message)}}
-function chooseVariant(name){selectedVariant=name;renderDetails()}
-function addDetailToCart(){if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');addCart(detailProduct.id,selectedVariant);closeModal('detailModal')}
-function orderDetailNow(){
- if((detailProduct.variants||[]).length&&!selectedVariant)return alert('একটি Color নির্বাচন করুন।');
- addCart(detailProduct.id,selectedVariant);closeModal('detailModal');openCart();
-}
 function openOrderNow(){
  $('orderNowProducts').innerHTML=products.map(p=>{
   let vars=p.variants||[];
